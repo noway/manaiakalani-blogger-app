@@ -15,6 +15,7 @@ class Login extends Component {
       <GoogleLogin
         clientId="457131676170-6sqjomp8211vm88ts33g1ailrri30886.apps.googleusercontent.com"
         buttonText="Login"
+        scope="profile email https://www.googleapis.com/auth/blogger"
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
       />
