@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import PostField from './PostField';
 import RichTextEditor from 'react-rte';
 import './editor.css'
 
@@ -29,14 +30,16 @@ class Editor extends Component {
 
   render () {
     return (
-      <div className="field-block">
-        <div className="field-block__title">Content:</div>
-        <RichTextEditor
-          value={this.state.value}
-          onChange={this.onChange}
-          placeholder="Type here..."
-        />
-      </div>
+      <PostField title="Content:" htmlFor="postContent">
+          <RichTextEditor
+            id="postContent" 
+            className="post-content"
+            value={this.state.value}
+            onChange={this.onChange}
+            placeholder="Type here..."
+          />
+      </PostField>
+
     );
   }
 

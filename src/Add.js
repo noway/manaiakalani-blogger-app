@@ -1,5 +1,6 @@
 import PostField from './PostField';
 import React, { Component } from 'react';
+import Editor from './Editor'
 
 class Add extends Component {
 
@@ -45,10 +46,6 @@ class Add extends Component {
                     <div className="post-main">
                         <PostField title="Title:" htmlFor="postTitle">
                             <input id="postTitle" type="text" className="post-title-input" />
-                        </PostField>
-
-                        <PostField title="Content:" htmlFor="postContent">
-                            <textarea id="postContent" className="post-content"></textarea>
                         </PostField>
                         <Editor/>
                     </div>
