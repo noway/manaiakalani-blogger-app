@@ -71,6 +71,7 @@ class App extends Component {
       this.setState({
         selectedBlog: myBlog,
         postsCount: myBlog.posts.totalItems,
+
         nextPageToken: myPosts.nextPageToken,
         posts: myPosts.items,
       });
@@ -79,7 +80,24 @@ class App extends Component {
       alert(`There has been an error while loading posts of your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
       return {};
     }
-  }
+  };
+
+  loadPostsNext = async (statuses = ['live', 'scheduled', 'draft']) => {
+    if (this.state.selectedBlog && this.state.nextPageToken) {
+      try {
+        const nextPosts = await Posts.list(this.state.selectedBlog.id, statuses, this.state.nextPageToken);
+        this.setState({
+          nextPageToken: nextPosts.nextPageToken,
+          posts: [...this.state.posts, ...nextPosts.items],
+        });
+      } catch (e) {
+        alert(`There has been an error while loading more blogs posts! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+      }
+    } else {
+      // For the case if initial load failed
+      return this.loadPostsInitial(statuses);
+    }
+  };
 
   makeApiCall = async () => {
     // // Make an API call to the People API, and print the user's given name.
@@ -153,25 +171,20 @@ class App extends Component {
     // --------------------------------------
 
 
-    for (var i = 0; i < 1; i++) {
-      console.log('i', i);
-      // -------- IVAN COPY-PASTE THIS -------- 
-      try {
-        const currentMoment2 = moment(); // Change that the scheduled date moment
-        const newPost = await Posts.insert(myBlog.id, {
-          title: 'Test Post from Ilia\'s API' + i,
-          content: 'Created in Blogger App!',
-          published: currentMoment2.toISOString(),
-          labels: ['cool label 1', 'cool label 2'],
-        });
-        console.log('newPost', newPost);
-      } catch (e) {
-        alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
-      }
-      // --------------------------------------
-
+    // -------- IVAN COPY-PASTE THIS -------- 
+    try {
+      const currentMoment2 = moment(); // Change that the scheduled date moment
+      const newPost = await Posts.insert(myBlog.id, {
+        title: 'Test Post from Ilia\'s API',
+        content: 'Created in Blogger App!',
+        published: currentMoment2.toISOString(),
+        labels: ['cool label 1', 'cool label 2'],
+      });
+      console.log('newPost', newPost);
+    } catch (e) {
+      alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
     }
-
+    // --------------------------------------
 
 
     // -------- IVAN COPY-PASTE THIS -------- 
@@ -182,24 +195,7 @@ class App extends Component {
       alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
     }
     // --------------------------------------
-  }
-
-  loadPostsNext = async (statuses = ['live', 'scheduled', 'draft']) => {
-    if (this.state.selectedBlog && this.state.nextPageToken) {
-      try {
-        const nextPosts = await Posts.list(this.state.selectedBlog.id, statuses, this.state.nextPageToken);
-        this.setState({
-          nextPageToken: nextPosts.nextPageToken,
-          posts: [...this.state.posts, ...nextPosts.items],
-        });
-      } catch (e) {
-        alert(`There has been an error while loading more blogs posts! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
-      }
-    } else {
-      // For the case if initial load failed
-      this.loadPostsInitial(statuses);
-    }
-  }
+  };
 
   render() {
     return this.state.isSignedIn ? (
