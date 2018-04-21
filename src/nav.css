@@ -122,6 +122,7 @@
 }
 
 .post-field-title {
+    display: block;
     padding: 10px;
     background: #E5E5E5;
     line-height: 125%;

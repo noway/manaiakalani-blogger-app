@@ -1,5 +1,4 @@
 import React from 'react';
-import PostTitleInput from './PostTitleInput';
 import PostField from './PostField';
 
 export default function() {
@@ -11,17 +10,17 @@ export default function() {
             <h2 className="post-page-title">Create a new post</h2>
             <div className="post-field-wrapper post-padding">
                 <div className="post-main">
-                    <PostField title="Title:">
-                        <PostTitleInput name="title" />
+                    <PostField title="Title:" htmlFor="postTitle">
+                        <input id="postTitle" type="text" className="post-title-input" />
                     </PostField>
 
-                    <PostField title="Content:">
-                        <textarea className="post-content"></textarea>
+                    <PostField title="Content:" htmlFor="postContent">
+                        <textarea id="postContent" className="post-content"></textarea>
                     </PostField>
                 </div>
                 <div className="post-secondary">
                     <PostField title="Add Label:">
-                        <select>
+                        <select className="label-select">
                             <option>Label 1</option>
                             <option>Label 2</option>
                         </select>
