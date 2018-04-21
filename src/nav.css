@@ -36,7 +36,7 @@
 }
 
 .main {
-    padding-left: 100px;
+    padding-left: 80px;
 }
 
 .block{
@@ -54,19 +54,15 @@
 .circle-yellow {
     background-color: yellow;
 }
-
 .circle-red {
     background-color: red;
 }
-
 .color-green {
     color: green;
 }
-
 .color-yellow {
     color: yellow;
 }
-
 .color-red {
     color: red;
 }
@@ -88,12 +84,85 @@
     margin-left: auto;
 }
 
-.Title-align{
-    float: left;
-    
+.post-header {
+    padding: 20px;
+    display: flex;
+    box-shadow: #CCC 0 2px 10px;
 }
-.Content-Css{
-     border-color: black;
-    border-style: solid;
 
+.post-header-logo {
+    height: 60px;
+}
+
+.post-page-title {
+    margin: 0;
+    font-size: 30px;
+    padding: 20px 20px 0 20px;
+}
+
+.post-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.post-padding {
+    padding: 20px;
+}
+
+.post-field {
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #E5E5E5;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.post-field-focused {
+    background: #65C6C0;
+    border: 1px solid #65C6C0;
+}
+
+.post-field-title {
+    padding: 10px;
+    background: #E5E5E5;
+    line-height: 125%;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.post-field-title-focused {
+    background: #65C6C0;
+}
+
+.post-title-input {
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.post-content {
+    width: 100%;
+    height: 200px;
+    border: none;
+}
+
+.post-field-wrapper {
+    display: flex;
+}
+
+.post-main {
+    width: 70%;
+    margin-right: 20px;
+    line-height: 0; /* Prevents space under textarea */
+}
+
+.post-secondary {
+    flex-grow: 1;
+}
+
+.label-select {
+    border: none;
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
 }

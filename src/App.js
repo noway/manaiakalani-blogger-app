@@ -75,7 +75,11 @@ class App extends Component {
       });
       return { myBlog, myPosts };
     } catch (e) {
-      alert(`There has been an error while loading posts of your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+      // Ignore this error on logout
+      if(this.state.isSignedIn) {
+        alert(`There has been an error while loading posts of your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+      }
+      
       return {};
     }
   };
