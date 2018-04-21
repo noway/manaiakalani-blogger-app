@@ -3,24 +3,23 @@ const MAX_RESULTS_PER_PAGE = 50;
 export class Blogs {
   static _listByUser() {
     return new Promise((resolve, reject) => {
-      const request = window.gapi.client.request({
+      window.gapi.client.request({
         path: '/blogger/v3/users/self/blogs',
         method: 'GET',
         params: {}
         // We are assuming user can't have too many of blogs
+      }).then((resp) => {
+        resolve(resp.result);
+      }, (reason) => {
+        reject(reason.result);
       });
-
-      request.execute((resp) => {  
-        resolve(resp);
-      });
-
-      // TODO: error handling?
     });
   } 
 
   // Tested manually by Ilia
   static async getMyFirstBlog() {
     const listByUserData = await Blogs._listByUser();
+    console.log('listByUserData',listByUserData)
     const myBlogs = listByUserData.items;
     return myBlogs[0];
   }
@@ -40,10 +39,10 @@ export class Posts {
           blogId,
           status,
         }
-      });
-
-      request.execute((resp) => {  
-        resolve(resp);
+      }).then((resp) => {
+        resolve(resp.result);
+      }, (reason) => {
+        reject(reason.result);
       });
     });
   }
@@ -70,10 +69,10 @@ export class Posts {
           isDraft,
         },
         body: post,
-      });
-
-      request.execute((resp) => {  
-        resolve(resp);
+      }).then((resp) => {
+        resolve(resp.result);
+      }, (reason) => {
+        reject(reason.result);
       });
     });
   }
@@ -91,9 +90,8 @@ export class Posts {
           postId,
         },
         body: post,
-      });
+      }).then((resp) => {
 
-      request.execute((resp) => {  
         if (isDraft) {
           const request = window.gapi.client.request({
             path: `/blogger/v3/blogs/${blogId}/posts/${post.id}/revert`,
@@ -102,15 +100,16 @@ export class Posts {
               blogId,
               postId: post.id,
             },
+          }).then((resp) => {
+            resolve(resp.result);
+          }, (reason) => {
+            reject(reason.result);
           });
-
-          request.execute((resp) => {  
-            resolve(resp);
-          });
-
         } else {
-          resolve(resp);          
+          resolve(resp.result);
         }
+      }, (reason) => {
+        reject(reason.result);
       });
     });
   }
@@ -125,10 +124,10 @@ export class Posts {
           blogId,
           postId,
         },
-      });
-
-      request.execute((resp) => {  
-        resolve(resp);
+      }).then((resp) => {
+        resolve(resp.result);
+      }, (reason) => {
+        reject(reason.result);
       });
     });
   }
@@ -144,10 +143,10 @@ export class Posts {
           blogId,
           postId,
         },
-      });
-
-      request.execute((resp) => {  
-        resolve(resp);
+      }).then((resp) => {
+        resolve(resp.result);
+      }, (reason) => {
+        reject(reason.result);
       });
     });
   }
