@@ -18,6 +18,7 @@ export class Blogs {
     });
   } 
 
+  // Tested manually by Ilia
   static async getMyFirstBlog() {
     const listByUserData = await Blogs._listByUser();
     const myBlogs = listByUserData.items;
@@ -27,6 +28,7 @@ export class Blogs {
 
 export class Posts {
 
+  // Tested manually by Ilia
   static list(blogId, status) {
     return new Promise((resolve, reject) => {
       const request = window.gapi.client.request({
@@ -46,6 +48,7 @@ export class Posts {
     });
   }
 
+  // Tested manually by Ilia
   static insert(blogId, { title, content, published, labels }, isDraft) {
     const post = {
       kind: "blogger#post",
@@ -59,7 +62,6 @@ export class Posts {
     };
 
     return new Promise((resolve, reject) => {
-      // test
       const request = window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts`,
         method: 'POST',
@@ -76,6 +78,7 @@ export class Posts {
     });
   }
 
+  // Tested manually by Ilia
   static updateAndPossiblyRevertToDraft(blogId, post, isDraft) {
     const postId = post.id;
 
@@ -112,6 +115,7 @@ export class Posts {
     });
   }
 
+  // Tested manually by Ilia
   static delete(blogId, postId) {
     return new Promise((resolve, reject) => {
       const request = window.gapi.client.request({
@@ -129,6 +133,7 @@ export class Posts {
     });
   }
 
+  // Tested manually by Ilia
   static get(blogId, postId) {
     return new Promise((resolve, reject) => {
       const request = window.gapi.client.request({
