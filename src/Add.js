@@ -6,6 +6,9 @@ export default function() {
         <form>
             <header className="post-header">
                 <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
+                <div className="post-header-buttons">
+                    Save | Delete | Preview
+                </div>
             </header>
             <h2 className="post-page-title">Create a new post</h2>
             <div className="post-field-wrapper post-padding">

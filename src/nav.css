@@ -94,10 +94,14 @@
     height: 60px;
 }
 
+.post-header-buttons {
+    margin-left: auto;
+}
+
 .post-page-title {
     margin: 0;
     font-size: 30px;
-    padding: 20px 20px 0 20px;
+    padding: 40px 40px 0 40px;
 }
 
 .post-footer {
@@ -106,13 +110,13 @@
 }
 
 .post-padding {
-    padding: 20px;
+    padding: 40px;
 }
 
 .post-field {
     border-radius: 10px 10px 0 0;
     border: 1px solid #E5E5E5;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     overflow: hidden;
 }
 
@@ -153,7 +157,7 @@
 
 .post-main {
     width: 70%;
-    margin-right: 20px;
+    margin-right: 40px;
     line-height: 0; /* Prevents space under textarea */
 }
 
