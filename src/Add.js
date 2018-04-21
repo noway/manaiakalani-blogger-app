@@ -50,6 +50,7 @@ class Add extends Component {
                         <PostField title="Content:" htmlFor="postContent">
                             <textarea id="postContent" className="post-content"></textarea>
                         </PostField>
+                        <Editor/>
                     </div>
                     <div className="post-secondary">
                         <PostField title="Add Label:">
