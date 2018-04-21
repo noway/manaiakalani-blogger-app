@@ -2,10 +2,10 @@ export class Blogs {
   static listByUser() {
     return new Promise((resolve, reject) => {
       var request = window.gapi.client.request({
-        'path': '/blogger/v3/users/self/blogs',
-        'method': 'GET',
+        path: '/blogger/v3/users/self/blogs',
+        method: 'GET',
         // 'params': {'maxResults': '50'}
-        'params': {}
+        params: {}
       });
 
       request.execute((respBlogger) => {  
@@ -28,7 +28,7 @@ export class Posts {
   static list(blogId, status) {
     return new Promise((resolve, reject) => {
       var request = window.gapi.client.request({
-        'path': '/blogger/v3/blogs/${blogId}/posts',
+        path: `/blogger/v3/blogs/${blogId}/posts`,
         'method': 'GET',
         'params': {
           blogId,
@@ -43,11 +43,11 @@ export class Posts {
   }
 
   static insert(blogId, isDraft) {
-    var request = window.gapi.client.request({
-      'path': '/blogger/v3/blogs/${blogId}/posts',
-      'method': 'POST',
+    window.gapi.client.request({
+      path: `/blogger/v3/blogs/${blogId}/posts`,
+      method: 'POST',
       // 'params': {'maxResults': '50'}
-      'params': {
+      params: {
         blogId,
         isDraft,
       }
