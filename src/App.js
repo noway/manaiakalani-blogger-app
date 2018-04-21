@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './Login'
+import {Blogs, Posts} from './api/blogger'
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class App extends Component {
     window.gapi.auth2.getAuthInstance().signOut();
   }
 
-  makeApiCall() {
+  async makeApiCall() {
 
 
     // Make an API call to the People API, and print the user's given name.
@@ -78,20 +79,20 @@ class App extends Component {
       console.log('resp',resp);
     }); 
 
-    var request = window.gapi.client.request({
-      'path': '/blogger/v3/users/self/blogs',
-      'method': 'GET',
-      // 'params': {'maxResults': '50'}
-      'params': {}
-    });
+
+    const myBlogId = await Blogs.getFirstBlogId();
+    const myPosts = await Posts.list(myBlogId, 'scheduled');
+    console.log('myBlogId', myBlogId);
+    console.log('myPosts', myPosts);
+
 
     // var request = window.gapi.blogger.blogs.listByUser({
     // 'userId': 'self',
     // });
 
-    request.execute((respBlogger) => {  
-      console.log('respBlogger',respBlogger);
-    }); 
+    // request.execute((respBlogger) => {  
+    //   console.log('respBlogger',respBlogger);
+    // }); 
 
 
 
