@@ -24,14 +24,6 @@ body {
   margin-top: -30px;
 }
 
-.button-logout {
-  appearance: none;
-  border: none;
-  background: transparent;
-  color: #FFF;
-  margin-top: auto;
-}
-
 .button-main {
   background: #1C43AB;
   color: #FFF;

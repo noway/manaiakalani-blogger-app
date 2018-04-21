@@ -27,8 +27,8 @@
     border: none;
     background: transparent;
     color: #FFF;
-    align-self: flex-end;
-  }
+    margin-top: auto;
+}
   
 
 .nav-logout-text {

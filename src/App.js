@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 
-import './App.css';
 import {Blogs, Posts} from './api/blogger'
 import Navigation from './Navigation'
 import FirstLogin from './FirstLogin'
 import * as moment from 'moment';
-
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isSignedIn: false
+      isSignedIn: true
     };
 
     this.initClient = this.initClient.bind(this);
