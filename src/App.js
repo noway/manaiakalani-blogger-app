@@ -40,6 +40,15 @@ class App extends Component {
     // When signin status changes, this function is called.
     // If the signin status is changed to signedIn, we make an API call.
     if (isSignedIn) {
+      const GoogleAuth = window.gapi.auth2.getAuthInstance();
+      const GoogleUser = GoogleAuth.currentUser.get();
+      const authResponse = GoogleUser.getAuthResponse(true);
+      const { id_token } = authResponse;
+      console.log('GoogleAuth',GoogleAuth)
+      console.log('GoogleUser',GoogleUser)
+      console.log('authResponse',authResponse)
+      console.log('id_token',id_token)
+
       this.setState({
         isSignedIn: true
       });
