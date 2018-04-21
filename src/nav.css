@@ -98,8 +98,14 @@
     color: #888;
     border: none;
     background: transparent;
-    font-size: 20px;
+    font-size: 40px;
     margin-left: 20px;
+    padding: 0 5px;
+}
+
+.post-header-button-label {
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 .post-header-logo {

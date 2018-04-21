@@ -28,15 +28,15 @@ class Add extends Component {
                     <div className="post-header-buttons">
                         <button type="button" className="post-header-button">
                             <i className="fas fa-save"></i>
-                            Save
+                            <span className="post-header-button-label">Save</span>
                         </button>
                         <button type="button" className="post-header-button">
                             <i className="fas fa-trash-alt"></i>
-                            Delete
+                            <span className="post-header-button-label">Delete</span>
                         </button>
                         <button type="button" className="post-header-button">
                             <i className="fas fa-eye"></i>
-                            Preview
+                            <span className="post-header-button-label">Preview</span>
                         </button>
                     </div>
                 </header>
