@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Manaiakalani Blogger App",
+  "name": "Manaiakalani Blogger App for use in schools",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,7 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1C43AB",
+  "background_color": "#1C43AB",
+  "orientation": "portrait"
 }
