@@ -5,8 +5,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    background-color: #1C43AB;
-    padding-top: 20px;
+    background-color: #1C43AB; 
     display: flex;
     flex-direction: column;
 }
@@ -29,7 +28,6 @@
     color: #FFF;
     margin-top: auto;
 }
-  
 
 .nav-logout-text {
     display: block;

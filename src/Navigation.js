@@ -13,13 +13,13 @@ class Navigation extends Component {
         <div>
           <nav className="nav">
             <Link to="/" className="nav-icon" title="Home">
-              <i class="fas fa-home"></i>
+              <i className="fas fa-home"></i>
             </Link>
             <Link to="/Add" className="nav-icon" title="Add">
-              <i class="fas fa-plus-circle"></i>
+              <i className="fas fa-plus-circle"></i>
             </Link>
             <button className="nav-icon button-logout" onClick={onLogoutClick}>
-              <i class="fas fa-user"></i>
+              <i className="fas fa-user"></i>
               <span className="nav-logout-text">Logout</span>
             </button>
           </nav>
