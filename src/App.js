@@ -47,6 +47,10 @@ class App extends Component {
         isSignedIn: true
       });
       this.makeApiCall();
+    } else {
+      this.setState({
+        isSignedIn: false
+      });
     }
   };
 
