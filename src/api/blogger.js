@@ -76,12 +76,12 @@ export class Posts {
     });
   }
 
-  static patchAndPossiblyRevertToDraft(blogId, post, isDraft) {
+  static updateAndPossiblyRevertToDraft(blogId, post, isDraft) {
     const postId = post.id
     return new Promise((resolve, reject) => {
       const request = window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts/${post.id}`,
-        method: 'PATCH',
+        method: 'PUT',
         params: {
           blogId,
           postId,

@@ -98,7 +98,7 @@ class App extends Component {
     console.log('my post #1', );
 
     myFirstPost.title = "" + Math.random();
-    console.log('my post #1 updated', await Posts.patchAndPossiblyRevertToDraft(myBlog.id, myFirstPost, false));
+    console.log('my post #1 updated', await Posts.updateAndPossiblyRevertToDraft(myBlog.id, myFirstPost, false));
 
 
 
