@@ -1,59 +1,47 @@
 import React, { Component } from 'react';
 import NavCss from './NavCss.css';
 import Block from './Block';
-
-const blocks1 = [
-  {
-    title: 'Demo 1',
-    status: 'Published',
-    content: 'abcd'
-  }, {
-    title: 'Demo 2',
-    status: 'Scheduled',
-    content: 'qwerty'
-  }
-];
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Home from './Home';
+import Add from './Add';
 
 class Navigation extends Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      blocks: blocks1
-    };
-  }
-
   render() {
-    const {onSignInClick} = this.props;
-    const {blocks} = this.state;
+    const { onSignInClick } = this.props;
     return (
-      <div>
-       <div className="sidenav">
-          <a href="./">About</a>
-          <a href="./">Services</a>
-          <a href="./">Clients</a>
-          <a href="./">Contact</a>
-        </div>
+      <Router>
+        <div>
+          <div className="sidenav">
+            <Link to="/">Home</Link>
+            <Link to="/Add">Add</Link>
+            <Link to="/Profile">Profile</Link>
+          </div>
 
-        <div className="main">
-          <button style={{
-            'display': 'inline-block',
-            'background': 'rgb(209, 72, 54)',
-            'color': 'rgb(255, 255, 255)',
-            'width': '190px',
-            'paddingTop': '10px',
-            'paddingBottom': '10px',
-            'borderRadius': '2px',
-            'border': '1px solid transparent',
-            'fontSize': '16px',
-            'fontWeight': 'bold',
-            'fontFamily': 'Roboto',
-          }} onClick={onSignInClick}>
-            Login
+
+          <div className="main">
+            <button style={{
+              'display': 'inline-block',
+              'background': 'rgb(209, 72, 54)',
+              'color': 'rgb(255, 255, 255)',
+              'width': '190px',
+              'paddingTop': '10px',
+              'paddingBottom': '10px',
+              'borderRadius': '2px',
+              'border': '1px solid transparent',
+              'fontSize': '16px',
+              'fontWeight': 'bold',
+              'fontFamily': 'Roboto',
+            }} onClick={onSignInClick}>
+              Login
           </button>
-          {blocks.map(block => (<Block key={block.content} {...block} />))}
+
+            <Route exact path="/" component={Home} />
+            <Route exact path="/Add" component={Add} />
+            {/*<Route path="/" component={Profile} />*/}
+
+          </div>
         </div>
-      </div>
+      </Router>
     );
   }
 }
