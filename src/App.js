@@ -4,6 +4,8 @@ import './App.css';
 import {Blogs, Posts} from './api/blogger'
 import Navigation from './Navigation'
 import FirstLogin from './FirstLogin'
+import * as moment from 'moment';
+
 
 class App extends Component {
   constructor(props) {
@@ -105,13 +107,15 @@ class App extends Component {
 
     console.log('my post #1 updated', updatedPost);
 
-    // const newPost = await Posts.insert(myBlog.id, {
-    //   title: 'Test Post from Ilia\'s API',
-    //   content: 'Created in Blogger App!'
-    //   published: 
-    // })
+    const currentMoment = moment(); // Change to the moment
+    const newPost = await Posts.insert(myBlog.id, {
+      title: 'Test Post from Ilia\'s API',
+      content: 'Created in Blogger App!',
+      published: currentMoment.toISOString(),
+      labels: ['cool label 1', 'cool label 2'],
+    });
 
-
+    console.log('newPost', newPost);
 
 
     // var request = window.gapi.blogger.blogs.listByUser({
