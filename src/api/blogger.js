@@ -1,3 +1,5 @@
+import { pick, omit } from 'lodash'
+
 const MAX_RESULTS_PER_PAGE = 50;
 
 export class Blogs {
@@ -11,7 +13,7 @@ export class Blogs {
       }).then((resp) => {
         resolve(resp.result);
       }, (reason) => {
-        reject(reason.result);
+        reject(reason.result.error);
       });
     });
   } 
@@ -30,7 +32,7 @@ export class Posts {
   // Tested manually by Ilia
   static list(blogId, status) {
     return new Promise((resolve, reject) => {
-      const request = window.gapi.client.request({
+      window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts`,
         method: 'GET',
         params: {
@@ -42,7 +44,7 @@ export class Posts {
       }).then((resp) => {
         resolve(resp.result);
       }, (reason) => {
-        reject(reason.result);
+        reject(reason.result.error);
       });
     });
   }
@@ -61,7 +63,7 @@ export class Posts {
     };
 
     return new Promise((resolve, reject) => {
-      const request = window.gapi.client.request({
+      window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts`,
         method: 'POST',
         params: {
@@ -72,17 +74,18 @@ export class Posts {
       }).then((resp) => {
         resolve(resp.result);
       }, (reason) => {
-        reject(reason.result);
+        reject(reason.result.error);
       });
     });
   }
 
   // Tested manually by Ilia
-  static updateAndPossiblyRevertToDraft(blogId, post, isDraft) {
-    const postId = post.id;
+  static updateAndPossiblyRevertToDraft(blogId, postData, isDraft) {
+    const postId = postData.id;
+    const post = postData;
 
     return new Promise((resolve, reject) => {
-      const request = window.gapi.client.request({
+      window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts/${post.id}`,
         method: 'PUT',
         params: {
@@ -93,7 +96,7 @@ export class Posts {
       }).then((resp) => {
 
         if (isDraft) {
-          const request = window.gapi.client.request({
+          window.gapi.client.request({
             path: `/blogger/v3/blogs/${blogId}/posts/${post.id}/revert`,
             method: 'POST',
             params: {
@@ -103,13 +106,15 @@ export class Posts {
           }).then((resp) => {
             resolve(resp.result);
           }, (reason) => {
-            reject(reason.result);
+            console.log('error here 1');
+            reject(reason.result.error);
           });
         } else {
           resolve(resp.result);
         }
       }, (reason) => {
-        reject(reason.result);
+        console.log('error here 2');
+        reject(reason.result.error);
       });
     });
   }
@@ -117,7 +122,7 @@ export class Posts {
   // Tested manually by Ilia
   static delete(blogId, postId) {
     return new Promise((resolve, reject) => {
-      const request = window.gapi.client.request({
+      window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts/${postId}`,
         method: 'DELETE',
         params: {
@@ -127,7 +132,7 @@ export class Posts {
       }).then((resp) => {
         resolve(resp.result);
       }, (reason) => {
-        reject(reason.result);
+        reject(reason.result.error);
       });
     });
   }
@@ -135,7 +140,7 @@ export class Posts {
   // Tested manually by Ilia
   static get(blogId, postId) {
     return new Promise((resolve, reject) => {
-      const request = window.gapi.client.request({
+      window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts/${postId}`,
         method: 'GET',
         params: {
@@ -146,7 +151,7 @@ export class Posts {
       }).then((resp) => {
         resolve(resp.result);
       }, (reason) => {
-        reject(reason.result);
+        reject(reason.result.error);
       });
     });
   }

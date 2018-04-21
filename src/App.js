@@ -83,45 +83,79 @@ class App extends Component {
       console.log('resp',resp);
     });
 
-    const myBlog = await Blogs.getMyFirstBlog();
+    let myBlog;
+    let myPosts;
+
+    try {
+      myBlog = await Blogs.getMyFirstBlog();
+      myPosts = await Posts.list(myBlog.id, ['live', 'scheduled', 'draft']);
+      this.setState({
+        posts: myPosts.items
+      });      
+    } catch (e) {
+      alert(`There has been an error while loading posts of your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+    }
+
     console.log('myBlog.id', myBlog.id);
 
-    const myPosts = await Posts.list(myBlog.id, ['live', 'scheduled', 'draft']);
-    this.setState({
-      posts: myPosts.items
-    });
 
-    const myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
-    console.log('my post #1', myFirstPost);
+    // -------- IVAN COPY-PASTE THIS -------- 
+    let myFirstPost;
+    try {
+      myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
+      console.log('my post #1', myFirstPost);
+    } catch (e) {
+      alert(`There has been an error while loading a post on your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+    }
+    // --------------------------------------
 
-    const updatedPost = await Posts.updateAndPossiblyRevertToDraft(
-      myBlog.id, 
-      { ...myFirstPost, title: `Random title ${Math.random()}`}, 
-      Math.round(Math.random())
-    );
 
-    console.log('my post #1 updated', updatedPost);
+    // -------- IVAN COPY-PASTE THIS -------- 
+    try {
+      const currentMoment1 = moment()
+      const updatedPost = await Posts.updateAndPossiblyRevertToDraft(
+        myBlog.id, 
+        { ...myFirstPost, title: `Random title ${Math.random()}`, updated: currentMoment1.toISOString()}, 
+        Math.round(Math.random())
+      );
 
-    const currentMoment = moment(); // Change that the scheduled date moment
-    const newPost = await Posts.insert(myBlog.id, {
-      title: 'Test Post from Ilia\'s API',
-      content: 'Created in Blogger App!',
-      published: currentMoment.toISOString(),
-      labels: ['cool label 1', 'cool label 2'],
-    });
+      console.log('my post #1 updated', updatedPost);      
+    } catch (e) {
+      alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+    }
+    // --------------------------------------
 
-    console.log('newPost', newPost);
 
-    const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
-    console.log('deletedPost', deletedPost)
+    // -------- IVAN COPY-PASTE THIS -------- 
+    try {
+      const currentMoment2 = moment(); // Change that the scheduled date moment
+      const newPost = await Posts.insert(myBlog.id, {
+        title: 'Test Post from Ilia\'s API',
+        content: 'Created in Blogger App!',
+        published: currentMoment2.toISOString(),
+        labels: ['cool label 1', 'cool label 2'],
+      });
+      console.log('newPost', newPost);
+    } catch (e) {
+      alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+    }
+    // --------------------------------------
 
-    // var request = window.gapi.blogger.blogs.listByUser({
-    // 'userId': 'self',
-    // });
 
-    // request.execute((respBlogger) => {  
-    //   console.log('respBlogger',respBlogger);
-    // }); 
+    // -------- IVAN COPY-PASTE THIS -------- 
+    try {
+      const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
+      console.log('deletedPost', deletedPost);
+    } catch (e) {
+      alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+    }
+    // --------------------------------------
+
+    // try {
+    //   const deletedPost = await Posts.delete(myBlog.id, 'bad id');
+    // } catch (e) {
+    //   alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+    // }
   }
 
   render() {
