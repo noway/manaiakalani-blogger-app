@@ -4,7 +4,7 @@ import Block from './Block';
 export default function Home({posts}) {
     console.log(posts);
     const component = posts ? posts.map(block => (
-        <Block key={block.content} {...block} />)
+        <Block key={block.id} {...block} />)
     ) : 'Loading';
     
     return (
