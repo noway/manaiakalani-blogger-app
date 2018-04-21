@@ -64,6 +64,23 @@ class App extends Component {
     window.gapi.auth2.getAuthInstance().signOut();
   };
 
+  loadPostsInitial = async (statuses = ['live', 'scheduled', 'draft']) => {
+    try {
+      const myBlog = await Blogs.getMyFirstBlog();
+      const myPosts = await Posts.list(myBlog.id, statuses);
+      this.setState({
+        selectedBlog: myBlog,
+        postsCount: myBlog.posts.totalItems,
+        nextPageToken: myPosts.nextPageToken,
+        posts: myPosts.items,
+      });
+      return { myBlog, myPosts };
+    } catch (e) {
+      alert(`There has been an error while loading posts of your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+      return {};
+    }
+  }
+
   makeApiCall = async () => {
     // // Make an API call to the People API, and print the user's given name.
     // var request = window.gapi.client.request({
@@ -104,23 +121,10 @@ class App extends Component {
         .setDeveloperKey(API_KEY)
         .setCallback((data) => console.log(data))
         .build();
-     picker.setVisible(true);
+     // picker.setVisible(true);
 
-    let myBlog;
-    let myPosts;
-
-    try {
-      myBlog = await Blogs.getMyFirstBlog();
-      myPosts = await Posts.list(myBlog.id, ['live', 'scheduled', 'draft']);
-      this.setState({
-        posts: myPosts.items
-      });      
-    } catch (e) {
-      alert(`There has been an error while loading posts of your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
-    }
-
+    const { myBlog, myPosts } = await this.loadPostsInitial();
     console.log('myBlog.id', myBlog.id);
-
 
     // -------- IVAN COPY-PASTE THIS -------- 
     let myFirstPost;
@@ -149,20 +153,25 @@ class App extends Component {
     // --------------------------------------
 
 
-    // -------- IVAN COPY-PASTE THIS -------- 
-    try {
-      const currentMoment2 = moment(); // Change that the scheduled date moment
-      const newPost = await Posts.insert(myBlog.id, {
-        title: 'Test Post from Ilia\'s API',
-        content: 'Created in Blogger App!',
-        published: currentMoment2.toISOString(),
-        labels: ['cool label 1', 'cool label 2'],
-      });
-      console.log('newPost', newPost);
-    } catch (e) {
-      alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+    for (var i = 0; i < 1; i++) {
+      console.log('i', i);
+      // -------- IVAN COPY-PASTE THIS -------- 
+      try {
+        const currentMoment2 = moment(); // Change that the scheduled date moment
+        const newPost = await Posts.insert(myBlog.id, {
+          title: 'Test Post from Ilia\'s API' + i,
+          content: 'Created in Blogger App!',
+          published: currentMoment2.toISOString(),
+          labels: ['cool label 1', 'cool label 2'],
+        });
+        console.log('newPost', newPost);
+      } catch (e) {
+        alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+      }
+      // --------------------------------------
+
     }
-    // --------------------------------------
+
 
 
     // -------- IVAN COPY-PASTE THIS -------- 
@@ -175,9 +184,26 @@ class App extends Component {
     // --------------------------------------
   }
 
+  loadPostsNext = async (statuses = ['live', 'scheduled', 'draft']) => {
+    if (this.state.selectedBlog && this.state.nextPageToken) {
+      try {
+        const nextPosts = await Posts.list(this.state.selectedBlog.id, statuses, this.state.nextPageToken);
+        this.setState({
+          nextPageToken: nextPosts.nextPageToken,
+          posts: [...this.state.posts, ...nextPosts.items],
+        });
+      } catch (e) {
+        alert(`There has been an error while loading more blogs posts! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+      }
+    } else {
+      // For the case if initial load failed
+      this.loadPostsInitial(statuses);
+    }
+  }
+
   render() {
     return this.state.isSignedIn ? (
-      <Navigation onLogoutClick={this.signOut} posts={this.state.posts} />
+      <Navigation onLogoutClick={this.signOut} posts={this.state.posts} postsCount={this.state.postsCount} loadPostsNext={() => this.loadPostsNext()} />
     ) : (
       <FirstLogin onSignInClick={this.signIn} />
     )

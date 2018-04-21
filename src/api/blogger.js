@@ -1,6 +1,6 @@
 import { pick, omit } from 'lodash'
 
-const MAX_RESULTS_PER_PAGE = 50;
+export const MAX_RESULTS_PER_PAGE = 10;
 
 export class Blogs {
   static _listByUser() {
@@ -30,14 +30,16 @@ export class Blogs {
 export class Posts {
 
   // Tested manually by Ilia
-  static list(blogId, status) {
+  static list(blogId, status, nextPageToken) {
     return new Promise((resolve, reject) => {
       window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts`,
         method: 'GET',
         params: {
-          // maxResults: MAX_RESULTS_PER_PAGE,
+          maxResults: MAX_RESULTS_PER_PAGE,
           view: 'AUTHOR',
+          orderBy: 'published',
+          ... nextPageToken ? { pageToken: nextPageToken } : {},
           blogId,
           status,
         }
