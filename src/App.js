@@ -105,11 +105,11 @@ class App extends Component {
 
     console.log('my post #1 updated', updatedPost);
 
-    const newPost = await Posts.insert(myBlog.id, {
-      title: 'Test Post from Ilia\'s API',
-      content: 'Created in Blogger App!'
-      published: 
-    })
+    // const newPost = await Posts.insert(myBlog.id, {
+    //   title: 'Test Post from Ilia\'s API',
+    //   content: 'Created in Blogger App!'
+    //   published: 
+    // })
 
 
 
