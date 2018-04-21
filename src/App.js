@@ -115,16 +115,17 @@ class App extends Component {
     const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
     console.log('deletedPost', deletedPost)
 
+    // var request = window.gapi.blogger.blogs.listByUser({
+    // 'userId': 'self',
+    // });
+
+    // request.execute((respBlogger) => {  
+    //   console.log('respBlogger',respBlogger);
+    // }); 
   }
 
   render() {
-    const component = this.state.isSignedIn ? <Navigation posts={this.state.posts} /> : <FirstLogin onSignInClick={this.handleSignInClick} />
-    return (
-      <div className="App">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-        {component}
-      </div>
-    );
+    return this.state.isSignedIn ? <Navigation posts={this.state.posts} /> : <FirstLogin onSignInClick={this.handleSignInClick} />
   }
 }
 
