@@ -32,8 +32,8 @@ export class Posts {
         'method': 'GET',
         'params': {
           blogId,
-          // status: ['draft', 'live', 'scheduled'],
-          status,
+          status: ['draft', 'live', 'scheduled'],
+          //status,
         }
       });
       request.execute((respBlogger) => {  

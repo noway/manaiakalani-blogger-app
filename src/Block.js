@@ -2,9 +2,9 @@ import React from 'react';
 import Circle from './Circle';
 
 const statusToColor = {
-    'Scheduled': 'yellow',
-    'Draft': 'red',
-    'Published': 'green'
+    'SCHEDULED': 'yellow',
+    'DRAFT': 'red',
+    'LIVE': 'green'
 };
 
 export default function Block({title, status, content}) {
@@ -16,8 +16,7 @@ export default function Block({title, status, content}) {
                 <h2 className="block-title">{title}</h2>
                 <span className={`block-status color-${color}`}>{status}</span>
             </div>
-            <div className="block-content">
-                {content}
+            <div className="block-content" dangerouslySetInnerHTML={{ __html: content }}>
             </div>
         </div>
     );

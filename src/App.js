@@ -3,10 +3,16 @@ import React, { Component } from 'react';
 import './App.css';
 import {Blogs, Posts} from './api/blogger'
 import Navigation from './Navigation'
+import FirstLogin from './FirstLogin'
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      isSignedIn: false
+    };
+
     // this.initClient = this.initClient.bind(this)
     this.initClient = this.initClient.bind(this);
     this.updateSigninStatus = this.updateSigninStatus.bind(this);
@@ -45,6 +51,9 @@ class App extends Component {
     // When signin status changes, this function is called.
     // If the signin status is changed to signedIn, we make an API call.
     if (isSignedIn) {
+      this.setState({
+        isSignedIn: true
+      });
       this.makeApiCall();
     }
   }
@@ -60,8 +69,6 @@ class App extends Component {
   }
 
   async makeApiCall() {
-
-
     // Make an API call to the People API, and print the user's given name.
     var request = window.gapi.client.request({
         'path': '/drive/v2/files?q=trashed=false ' +
@@ -77,14 +84,13 @@ class App extends Component {
 
     request.execute((resp) => {  
       console.log('resp',resp);
-    }); 
-
+    });
 
     const myBlog = await Blogs.getMyFirstBlog();
-    const myPosts = await Posts.list(myBlog.id, 'scheduled');
-    console.log('myBlog.id', myBlog.id);
-    console.log('myPosts', myPosts);
-
+    const myPosts = await Posts.list(myBlog.id);
+    this.setState({
+      posts: myPosts.items
+    });
 
     // var request = window.gapi.blogger.blogs.listByUser({
     // 'userId': 'self',
@@ -93,26 +99,14 @@ class App extends Component {
     // request.execute((respBlogger) => {  
     //   console.log('respBlogger',respBlogger);
     // }); 
-
-
-
   }
 
   render() {
+    const component = this.state.isSignedIn ? <Navigation posts={this.state.posts} /> : <FirstLogin onSignInClick={this.handleSignInClick} />
     return (
       <div className="App">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
-
-        <Navigation
-          onSignInClick={this.handleSignInClick}
-        />
-
-        {/*<header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>*/}
-
-        
+        {component}
       </div>
     );
   }
