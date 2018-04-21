@@ -136,7 +136,7 @@ class App extends Component {
         .addView(new window.google.picker.DocsUploadView())
         .setDeveloperKey(API_KEY)
         .setCallback((data) => {
-          if (data.action == 'picked') {
+          if (data.action === 'picked') {
             document.write(`<iframe src="${data.docs[0].embedUrl}" width="640" height="480"></iframe>`)
           }
         })

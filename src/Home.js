@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Block from './Block';
 import InfiniteScroll from 'react-infinite-scroller';
-import { MAX_RESULTS_PER_PAGE } from './api/blogger'
 
 export default function Home({ posts, postsCount, loadPostsNext }) {
     console.log(posts);

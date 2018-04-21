@@ -1,5 +1,3 @@
-import { pick, omit } from 'lodash'
-
 export const MAX_RESULTS_PER_PAGE = 10;
 
 export class Blogs {
@@ -39,7 +37,7 @@ export class Posts {
           maxResults: MAX_RESULTS_PER_PAGE,
           view: 'AUTHOR',
           orderBy: 'published',
-          ... nextPageToken ? { pageToken: nextPageToken } : {},
+          ...nextPageToken ? { pageToken: nextPageToken } : {},
           blogId,
           status,
         }
