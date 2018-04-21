@@ -16,7 +16,7 @@ export class Blogs {
     });
   } 
 
-  static async getFirstBlog() {
+  static async getMyFirstBlog() {
     const listByUserData = await Blogs.listByUser();
     const myBlogs = listByUserData.items;
     return myBlogs[0];
@@ -55,9 +55,9 @@ export class Posts {
     });
   }
 
-  static updateAndPossiblyRevertToDraft
-  static delete
-  static get
+  // static updateAndPossiblyRevertToDraft
+  // static delete
+  // static get
 
 
 
