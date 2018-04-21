@@ -104,7 +104,7 @@ class App extends Component {
         .setDeveloperKey(API_KEY)
         .setCallback((data) => console.log(data))
         .build();
-     // picker.setVisible(true);
+     picker.setVisible(true);
 
     let myBlog;
     let myPosts;
