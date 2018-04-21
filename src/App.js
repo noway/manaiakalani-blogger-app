@@ -150,12 +150,6 @@ class App extends Component {
       alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
     }
     // --------------------------------------
-
-    // try {
-    //   const deletedPost = await Posts.delete(myBlog.id, 'bad id');
-    // } catch (e) {
-    //   alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
-    // }
   }
 
   render() {
