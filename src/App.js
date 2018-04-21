@@ -207,9 +207,13 @@ class App extends Component {
     // --------------------------------------
   };
 
+  schedulePost = () => {
+    console.log('scheudle pressed! !');
+  }
+
   render() {
     return this.state.isSignedIn ? (
-      <Navigation onLogoutClick={this.signOut} posts={this.state.posts} postsCount={this.state.postsCount} loadPostsNext={() => this.loadPostsNext()} />
+      <Navigation onLogoutClick={this.signOut} posts={this.state.posts} postsCount={this.state.postsCount} loadPostsNext={() => this.loadPostsNext()} schedulePost={this.schedulePost}/>
     ) : (
       <FirstLogin onSignInClick={this.signIn} />
     )

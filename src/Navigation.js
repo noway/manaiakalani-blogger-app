@@ -7,7 +7,7 @@ import './nav.css';
 
 class Navigation extends Component {
   render() {
-    const { posts, postsCount, loadPostsNext, onLogoutClick } = this.props;
+    const { posts, postsCount, loadPostsNext, onLogoutClick, schedulePost } = this.props;
     return (
       <Router>
         <div>
@@ -27,7 +27,9 @@ class Navigation extends Component {
             <Route exact path="/" component={() => (
               <Home posts={posts} postsCount={postsCount} loadPostsNext={loadPostsNext} />
             )} />
-            <Route exact path="/Add" component={Add} />
+            <Route exact path="/Add" component={() =>(
+              <Add schedulePost={schedulePost}/>
+            )} />
             <Route path="/Profile" component={Profile} />
           </div>
         </div>
