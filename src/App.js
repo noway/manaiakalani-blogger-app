@@ -132,7 +132,7 @@ class App extends Component {
         .setDeveloperKey(API_KEY)
         .setCallback((data) => console.log(data))
         .build();
-     // picker.setVisible(true);
+     picker.setVisible(true);
 
     const { myBlog, myPosts } = await this.loadPostsInitial();
     console.log('myBlog.id', myBlog.id);
