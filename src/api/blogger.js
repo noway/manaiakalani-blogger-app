@@ -1,7 +1,7 @@
 const MAX_RESULTS_PER_PAGE = 50;
 
 export class Blogs {
-  static listByUser() {
+  static _listByUser() {
     return new Promise((resolve, reject) => {
       const request = window.gapi.client.request({
         path: '/blogger/v3/users/self/blogs',
@@ -19,7 +19,7 @@ export class Blogs {
   } 
 
   static async getMyFirstBlog() {
-    const listByUserData = await Blogs.listByUser();
+    const listByUserData = await Blogs._listByUser();
     const myBlogs = listByUserData.items;
     return myBlogs[0];
   }
@@ -46,13 +46,13 @@ export class Posts {
     });
   }
 
-  static insert(blogId, { title, content, date, labels }, isDraft) {
+  static insert(blogId, { title, content, published, labels }, isDraft) {
     const post = {
       kind: "blogger#post",
       blog: {
         id: blogId
       },
-      published: date,
+      published,
       title,
       content,
       labels,
@@ -77,7 +77,8 @@ export class Posts {
   }
 
   static updateAndPossiblyRevertToDraft(blogId, post, isDraft) {
-    const postId = post.id
+    const postId = post.id;
+
     return new Promise((resolve, reject) => {
       const request = window.gapi.client.request({
         path: `/blogger/v3/blogs/${blogId}/posts/${post.id}`,

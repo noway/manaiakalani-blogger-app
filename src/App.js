@@ -87,18 +87,29 @@ class App extends Component {
     });
 
     const myBlog = await Blogs.getMyFirstBlog();
+    console.log('myBlog.id', myBlog.id);
+
     const myPosts = await Posts.list(myBlog.id, ['live', 'scheduled', 'draft']);
     this.setState({
       posts: myPosts.items
     });
 
-    console.log('myBlog.id', myBlog.id);
-    console.log('myPosts', myPosts);
     const myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
-    console.log('my post #1', );
+    console.log('my post #1', myFirstPost);
 
-    myFirstPost.title = "" + Math.random();
-    console.log('my post #1 updated', await Posts.updateAndPossiblyRevertToDraft(myBlog.id, myFirstPost, false));
+    const updatedPost = await Posts.updateAndPossiblyRevertToDraft(
+      myBlog.id, 
+      { ...myFirstPost, title: `Random title ${Math.random()}`}, 
+      Math.round(Math.random())
+    );
+
+    console.log('my post #1 updated', updatedPost);
+
+    const newPost = await Posts.insert(myBlog.id, {
+      title: 'Test Post from Ilia\'s API',
+      content: 'Created in Blogger App!'
+      published: 
+    })
 
 
 
