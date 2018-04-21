@@ -11,7 +11,7 @@ const ALL_AUDIO_MIME_TYPES='audio/flac,audio/mpegurl,audio/mp4,audio/mpeg,audio/
 const APP_ID = '457131676170';
 const API_KEY = 'AIzaSyAYXOVFtKSsuHB0xSBFklbNpn5Fna5Vycs';
 const CLIENT_ID = '457131676170-6sqjomp8211vm88ts33g1ailrri30886.apps.googleusercontent.com';
-const SCOPE = 'profile email https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/drive';
+const SCOPE = 'profile email https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/drive.readonly';
 
 class App extends Component {
   constructor(props) {
@@ -152,6 +152,7 @@ class App extends Component {
       myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
       console.log('my post #1', myFirstPost);
     } catch (e) {
+      console.log('e',e)
       alert(`There has been an error while loading a post on your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
     }
     // --------------------------------------
@@ -168,6 +169,7 @@ class App extends Component {
 
       console.log('my post #1 updated', updatedPost);      
     } catch (e) {
+      console.log('e',e)
       alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
     }
     // --------------------------------------
@@ -184,6 +186,7 @@ class App extends Component {
       });
       console.log('newPost', newPost);
     } catch (e) {
+      console.log('e',e)
       alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
     }
     // --------------------------------------
@@ -194,6 +197,7 @@ class App extends Component {
       const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
       console.log('deletedPost', deletedPost);
     } catch (e) {
+      console.log('e',e)
       alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
     }
     // --------------------------------------
