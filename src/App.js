@@ -5,6 +5,13 @@ import Navigation from './Navigation'
 import FirstLogin from './FirstLogin'
 import * as moment from 'moment';
 
+
+// Hard coding those is fine. As long as we don't put api secret here!!!
+const APP_ID = '457131676170';
+const API_KEY = 'AIzaSyAYXOVFtKSsuHB0xSBFklbNpn5Fna5Vycs';
+const CLIENT_ID = '457131676170-6sqjomp8211vm88ts33g1ailrri30886.apps.googleusercontent.com';
+const SCOPE = 'profile email https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/drive';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.gapi.load('client:auth2:blogger', this.initClient);
+    window.gapi.load('client:auth2:blogger:picker', this.initClient);
   }
 
   initClient = () => {
@@ -23,9 +30,9 @@ class App extends Component {
     // Initialize the client with API key and People API, and initialize OAuth with an
     // OAuth 2.0 client ID and scopes (space delimited string) to request access.
     window.gapi.client.init({
-        apiKey: 'AIzaSyAYXOVFtKSsuHB0xSBFklbNpn5Fna5Vycs',
-        clientId: '457131676170-6sqjomp8211vm88ts33g1ailrri30886.apps.googleusercontent.com',
-        scope: 'profile email https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/drive'
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      scope: SCOPE,
     }).then(() => {
       // Listen for sign-in state changes.
       window.gapi.auth2.getAuthInstance().isSignedIn.listen(
@@ -40,15 +47,6 @@ class App extends Component {
     // When signin status changes, this function is called.
     // If the signin status is changed to signedIn, we make an API call.
     if (isSignedIn) {
-      const GoogleAuth = window.gapi.auth2.getAuthInstance();
-      const GoogleUser = GoogleAuth.currentUser.get();
-      const authResponse = GoogleUser.getAuthResponse(true);
-      const { id_token } = authResponse;
-      console.log('GoogleAuth',GoogleAuth)
-      console.log('GoogleUser',GoogleUser)
-      console.log('authResponse',authResponse)
-      console.log('id_token',id_token)
-
       this.setState({
         isSignedIn: true
       });
@@ -67,22 +65,46 @@ class App extends Component {
   };
 
   makeApiCall = async () => {
-    // Make an API call to the People API, and print the user's given name.
-    var request = window.gapi.client.request({
-        'path': '/drive/v2/files?q=trashed=false ' +
-                'and ( '+
-                  'mimeType contains "application/rtf" or ' +
-                  'mimeType contains "application/pdf" or ' +
-                  'mimeType contains "application/vnd.openxmlformats-officedocument.wordprocessingml.document" or ' +
-                  'mimeType contains "application/msword" ' +
-                ')',
-        'method': 'GET',
-        'params': {'maxResults': '50'}
-        });
+    // // Make an API call to the People API, and print the user's given name.
+    // var request = window.gapi.client.request({
+    //     'path': '/drive/v2/files?q=trashed=false ' +
+    //             'and ( '+
+    //               'mimeType contains "application/rtf" or ' +
+    //               'mimeType contains "application/pdf" or ' +
+    //               'mimeType contains "application/vnd.openxmlformats-officedocument.wordprocessingml.document" or ' +
+    //               'mimeType contains "application/msword" ' +
+    //             ')',
+    //     'method': 'GET',
+    //     'params': {'maxResults': '50'}
+    //     });
 
-    request.execute((resp) => {  
-      console.log('resp',resp);
-    });
+    // request.execute((resp) => {  
+    //   console.log('resp',resp);
+    // });
+
+    const GoogleAuth = window.gapi.auth2.getAuthInstance();
+    const GoogleUser = GoogleAuth.currentUser.get();
+    const authResponse = GoogleUser.getAuthResponse(true);
+    const { id_token } = authResponse;
+    console.log('GoogleAuth', GoogleAuth);
+    console.log('GoogleUser', GoogleUser);
+    console.log('authResponse', authResponse);
+    console.log('id_token', id_token);
+
+
+    var view = new window.google.picker.View(window.google.picker.ViewId.DOCS);
+    view.setMimeTypes("image/png,image/jpeg,image/jpg");
+    var picker = new window.google.picker.PickerBuilder()
+        .enableFeature(window.google.picker.Feature.NAV_HIDDEN)
+        .enableFeature(window.google.picker.Feature.MULTISELECT_ENABLED)
+        .setAppId(APP_ID)
+        .setOAuthToken(id_token)
+        .addView(view)
+        .addView(new window.google.picker.DocsUploadView())
+        .setDeveloperKey(API_KEY)
+        .setCallback((data) => console.log(data))
+        .build();
+     // picker.setVisible(true);
 
     let myBlog;
     let myPosts;
