@@ -26,9 +26,6 @@ class App extends Component {
   }
 
   initClient = () => {
-    console.log('initClient')
-    // Initialize the client with API key and People API, and initialize OAuth with an
-    // OAuth 2.0 client ID and scopes (space delimited string) to request access.
     window.gapi.client.init({
       apiKey: API_KEY,
       clientId: CLIENT_ID,
@@ -44,8 +41,6 @@ class App extends Component {
   };
 
   updateSigninStatus = (isSignedIn) => {
-    // When signin status changes, this function is called.
-    // If the signin status is changed to signedIn, we make an API call.
     if (isSignedIn) {
       this.setState({
         isSignedIn: true
@@ -55,8 +50,6 @@ class App extends Component {
   };
 
   signIn = (event) => {
-    // Ideally the button should only show up after window.gapi.client.init finishes, so that this
-    // handler won't be called before OAuth is initialized.
     window.gapi.auth2.getAuthInstance().signIn();
   };
 
