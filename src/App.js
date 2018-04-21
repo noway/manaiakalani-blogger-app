@@ -87,10 +87,21 @@ class App extends Component {
     });
 
     const myBlog = await Blogs.getMyFirstBlog();
-    const myPosts = await Posts.list(myBlog.id);
+    const myPosts = await Posts.list(myBlog.id, ['live', 'scheduled', 'draft']);
     this.setState({
       posts: myPosts.items
     });
+
+    console.log('myBlog.id', myBlog.id);
+    console.log('myPosts', myPosts);
+    const myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
+    console.log('my post #1', );
+
+    myFirstPost.title = "" + Math.random();
+    console.log('my post #1 updated', await Posts.patchAndPossiblyRevertToDraft(myBlog.id, myFirstPost, false));
+
+
+
 
     // var request = window.gapi.blogger.blogs.listByUser({
     // 'userId': 'self',
