@@ -15,7 +15,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.gapi.load('client:auth2', this.initClient);
+
+    window.gapi.load('client:auth2:blogger', this.initClient);
   }
 
   initClient() {
@@ -76,6 +77,23 @@ class App extends Component {
     request.execute((resp) => {  
       console.log('resp',resp);
     }); 
+
+    var request = window.gapi.client.request({
+      'path': '/blogger/v3/users/self/blogs',
+      'method': 'GET',
+      // 'params': {'maxResults': '50'}
+      'params': {}
+    });
+
+    // var request = window.gapi.blogger.blogs.listByUser({
+    // 'userId': 'self',
+    // });
+
+    request.execute((respBlogger) => {  
+      console.log('respBlogger',respBlogger);
+    }); 
+
+
 
   }
 
