@@ -15,7 +15,6 @@ class App extends Component {
       isSignedIn: false
     };
 
-    // this.initClient = this.initClient.bind(this)
     this.initClient = this.initClient.bind(this);
     this.updateSigninStatus = this.updateSigninStatus.bind(this);
     this.handleSignInClick = this.handleSignInClick.bind(this);
@@ -24,7 +23,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     window.gapi.load('client:auth2:blogger', this.initClient);
   }
 
@@ -34,9 +32,6 @@ class App extends Component {
     // OAuth 2.0 client ID and scopes (space delimited string) to request access.
     window.gapi.client.init({
         apiKey: 'AIzaSyAYXOVFtKSsuHB0xSBFklbNpn5Fna5Vycs',
-
-        // discoveryDocs: ["https://people.googleapis.com/$discovery/rest?version=v1"],
-
         clientId: '457131676170-6sqjomp8211vm88ts33g1ailrri30886.apps.googleusercontent.com',
         scope: 'profile email https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/drive'
     }).then(() => {
@@ -107,7 +102,7 @@ class App extends Component {
 
     console.log('my post #1 updated', updatedPost);
 
-    const currentMoment = moment(); // Change to the moment
+    const currentMoment = moment(); // Change that the scheduled date moment
     const newPost = await Posts.insert(myBlog.id, {
       title: 'Test Post from Ilia\'s API',
       content: 'Created in Blogger App!',
@@ -117,14 +112,9 @@ class App extends Component {
 
     console.log('newPost', newPost);
 
+    const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
+    console.log('deletedPost', deletedPost)
 
-    // var request = window.gapi.blogger.blogs.listByUser({
-    // 'userId': 'self',
-    // });
-
-    // request.execute((respBlogger) => {  
-    //   console.log('respBlogger',respBlogger);
-    // }); 
   }
 
   render() {
