@@ -80,9 +80,9 @@ class App extends Component {
     }); 
 
 
-    const myBlogId = await Blogs.getFirstBlogId();
-    const myPosts = await Posts.list(myBlogId, 'scheduled');
-    console.log('myBlogId', myBlogId);
+    const myBlog = await Blogs.getMyFirstBlog();
+    const myPosts = await Posts.list(myBlog.id, 'scheduled');
+    console.log('myBlog.id', myBlog.id);
     console.log('myPosts', myPosts);
 
 

@@ -16,10 +16,10 @@ export class Blogs {
     });
   } 
 
-  static async getFirstBlogId() {
+  static async getFirstBlog() {
     const listByUserData = await Blogs.listByUser();
     const myBlogs = listByUserData.items;
-    return myBlogs[0].id;
+    return myBlogs[0];
   }
 }
 
@@ -42,10 +42,11 @@ export class Posts {
     });
   }
 
-  static insert(blogId, isDraft) {
-    window.gapi.client.request({
-      path: `/blogger/v3/blogs/${blogId}/posts`,
-      method: 'POST',
+  static insert(blogId, isDraft, date) {
+    // test
+    var request = window.gapi.client.request({
+      'path': `/blogger/v3/blogs/${blogId}/posts`,
+      'method': 'POST',
       // 'params': {'maxResults': '50'}
       params: {
         blogId,
@@ -53,6 +54,13 @@ export class Posts {
       }
     });
   }
+
+  static updateAndPossiblyRevertToDraft
+  static delete
+  static get
+
+
+
 
   static test() {
     return;
