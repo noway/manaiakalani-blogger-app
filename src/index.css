@@ -18,10 +18,25 @@ body {
 
 .first-login-button {
   margin-top: 20px;
-  background: rgb(209, 72, 54);
+}
+
+.first-login-image {
+  margin-top: -30px;
+}
+
+.button-logout {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #FFF;
+  margin-top: auto;
+}
+
+.button-main {
+  background: #1C43AB;
   color: #FFF;
   padding: 10px 20px;
   border: none;
-  font-size: 16px;
-  border-radius: 2px;
+  font-size: 20px;
+  border-radius: 6px;
 }

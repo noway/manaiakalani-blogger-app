@@ -1,0 +1,101 @@
+.nav {
+    width: 80px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #1C43AB;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-icon {
+    color: #FFF;
+    font-size: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.button-logout {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: #FFF;
+    align-self: flex-end;
+  }
+  
+
+.nav-logout-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.main {
+    padding-left: 100px;
+}
+
+.block{
+    padding: 20px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.circle-green {
+    background-color: green;
+}
+.circle-yellow {
+    background-color: yellow;
+}
+
+.circle-red {
+    background-color: red;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-yellow {
+    color: yellow;
+}
+
+.color-red {
+    color: red;
+}
+
+.block-title {
+    margin: 0 0 0 10px;
+}
+
+.block-header {
+    display: flex;
+    align-items: center;
+}
+
+.block-content {
+    margin: 20px 0 0 40px;
+}
+
+.block-status {
+    margin-left: auto;
+}
+
+.Title-align{
+    float: left;
+    
+}
+.Content-Css{
+     border-color: black;
+    border-style: solid;
+
+}
