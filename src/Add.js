@@ -26,7 +26,18 @@ class Add extends Component {
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
-                        Save | Delete | Preview
+                        <button type="button" className="post-header-button">
+                            <i className="fas fa-save"></i>
+                            Save
+                        </button>
+                        <button type="button" className="post-header-button">
+                            <i className="fas fa-trash-alt"></i>
+                            Delete
+                        </button>
+                        <button type="button" className="post-header-button">
+                            <i className="fas fa-eye"></i>
+                            Preview
+                        </button>
                     </div>
                 </header>
                 <h2 className="post-page-title">Create a new post</h2>

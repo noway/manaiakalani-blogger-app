@@ -47,6 +47,7 @@
     border-radius: 50%;
     width: 30px;
     height: 30px;
+    flex-shrink: 0;
 }
 .circle-green {
     background-color: green;
@@ -85,17 +86,31 @@
 }
 
 .post-header {
-    padding: 20px;
     display: flex;
     box-shadow: #CCC 0 2px 10px;
 }
 
+.post-header-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    margin-left: 20px;
+}
+
 .post-header-logo {
     height: 60px;
+    margin: 20px 0 20px 40px;
 }
 
 .post-header-buttons {
     margin-left: auto;
+    margin-right: 40px;
+    display: flex;
 }
 
 .post-page-title {

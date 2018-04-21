@@ -9,6 +9,10 @@ body {
   box-sizing: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 .first-login {
   position: absolute;
   top: 0;
