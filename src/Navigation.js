@@ -52,6 +52,7 @@ class Navigation extends Component {
                   id={post.id}
                   title={post.title}
                   content={post.content}
+                  status={post.status}
                 />
               );
             }} />

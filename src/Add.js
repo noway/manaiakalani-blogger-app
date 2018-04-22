@@ -37,6 +37,32 @@ class Add extends Component {
         const { selectedBlog } = this.props;
         const { title, labels } = this.state;
 
+        if (!title || !strip(content)) {
+            return alert('Please fill out title and the content of the post.');
+        }
+
+        try {
+          const currentMoment = moment(); // Change that the scheduled date moment
+          const newPost = await Posts.insert(selectedBlog.id, {
+            title,
+            content,
+            labels,
+            published: currentMoment.toISOString(),
+          }, false);
+
+          this.setState({
+            redirectToPosts: true,
+          })
+        } catch (error) {
+          alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${error.message}`);
+          console.error('error', error);
+        }
+    };
+
+    handleSaveAsDraftClick = async () => {
+        const content = this._editor.getValueHtml();
+        const { selectedBlog } = this.props;
+        const { title, labels } = this.state;
 
         if (!title || !strip(content)) {
             return alert('Please fill out title and the content of the post.');
@@ -49,8 +75,7 @@ class Add extends Component {
             content,
             labels,
             published: currentMoment.toISOString(),
-          });
-          console.log('newPost', newPost);
+          }, true);
 
           this.setState({
             redirectToPosts: true,
@@ -74,7 +99,7 @@ class Add extends Component {
     };
 
     render() {
-        const {schedulePost, id, title, content} = this.props;
+        const {schedulePost, id, title, content, status} = this.props;
         const {redirectToPosts} = this.state;
         const pageTitle = id ? 'Edit post' : 'Create a new post';
         if (redirectToPosts) {
@@ -85,9 +110,9 @@ class Add extends Component {
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
-                        <button type="button" className="post-header-button">
+                        <button type="button" className="post-header-button" onClick={this.handleSaveAsDraftClick}>
                             <i className="fas fa-save"></i>
-                            <span className="post-header-button-label">Save</span>
+                            <span className="post-header-button-label">{status == 'DRAFT' || !status ? 'Save' : 'Revert to Draft'}</span>
                         </button>
                         <button type="button" className="post-header-button">
                             <i className="fas fa-trash-alt"></i>
@@ -144,8 +169,8 @@ class Add extends Component {
                     </div>
                 </div>
                 <footer className="post-footer">
-                    <button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button>
-                    <button type="button" className="button-secondary button-spaced" onClick={this.handlePublishClick}>Publish</button>
+                    {/*<button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button>*/}
+                    <button type="button" className="button-secondary button-spaced" onClick={this.handlePublishClick}>{ id ? 'Update' : 'Publish' }</button>
                 </footer>
             </form>
         );
