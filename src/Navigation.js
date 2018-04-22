@@ -25,6 +25,7 @@ class Navigation extends Component {
             mainMessage="log out?"
             leftActionClassName="button-secondary button-ghost button-alert"
             rightActionClassName="button-main button-alert"
+            alertBodyColorClassName="alert-body-red"
           />
           <nav className="nav">
             <Link to="/" className="nav-icon" title="Home">

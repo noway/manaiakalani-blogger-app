@@ -5,6 +5,8 @@ import {Blogs, Posts} from './api/blogger'
 import * as moment from 'moment';
 import { map, uniq, difference } from 'lodash';
 import { Redirect } from 'react-router'
+import MessageModal from './Modal';
+
 
 function strip(html){
    var doc = new DOMParser().parseFromString(html, 'text/html');
@@ -18,11 +20,45 @@ class Add extends Component {
         super(props);
 
         this.state = {
+            activeModal: null,
             timePickerShown: false,
             title: props.title ? props.title : '',
             labels: props.labels ? props.labels : [],
             redirectToPosts: false,
         };
+    }
+
+    getModal(activeModal) {
+        switch(activeModal) {
+            case 'DELETE':
+                return (
+                    <MessageModal 
+                        ref={modal => this.modal = modal}
+                        //onLeftActionClick={}
+                        leftActionText="Yes"
+                        rightActionText="Cancel"
+                        message="Are you sure you want to"
+                        mainMessage="delete this post?"
+                        leftActionClassName="button-secondary button-ghost button-alert"
+                        rightActionClassName="button-main button-alert"
+                        alertBodyColorClassName="alert-body-red"
+                    />
+                )
+            case 'PUBLISH':
+                return (
+                    <MessageModal 
+                        ref={modal => this.modal = modal}
+                        onLeftActionClick={this.handlePublishClick}
+                        leftActionText="Yes"
+                        rightActionText="Cancel"
+                        message="Are you sure you want to"
+                        mainMessage="publish this post?"
+                        leftActionClassName="button-secondary button-ghost button-alert"
+                        rightActionClassName="button-main button-alert"
+                        alertBodyColorClassName="alert-body-green"
+                    />
+                )
+        }
     }
 
     handleScheduleOnClick = () => {
@@ -73,15 +109,26 @@ class Add extends Component {
         });
     };
 
+    setActiveModal = (modalName) => {
+        return () => {
+            this.setState({
+                activeModal: modalName
+            }, () => {
+                this.modal.openModal();
+            });
+        }
+    }
+
     render() {
         const {schedulePost, id, title, content} = this.props;
-        const {redirectToPosts} = this.state;
+        const {redirectToPosts, activeModal} = this.state;
         const pageTitle = id ? 'Edit post' : 'Create a new post';
         if (redirectToPosts) {
            return <Redirect to='/'/>;
         }
         return (
             <form onSubmit={(e) => { this.handlePublishClick(); e.preventDefault(); return false }}>
+                {this.getModal(activeModal)}
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
@@ -89,7 +136,7 @@ class Add extends Component {
                             <i className="fas fa-save"></i>
                             <span className="post-header-button-label">Save</span>
                         </button>
-                        <button type="button" className="post-header-button">
+                        <button type="button" className="post-header-button" onClick={this.setActiveModal('DELETE')}>
                             <i className="fas fa-trash-alt"></i>
                             <span className="post-header-button-label">Delete</span>
                         </button>
@@ -145,7 +192,7 @@ class Add extends Component {
                 </div>
                 <footer className="post-footer">
                     <button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button>
-                    <button type="button" className="button-secondary button-spaced" onClick={this.handlePublishClick}>Publish</button>
+                    <button type="button" className="button-secondary button-spaced" onClick={this.setActiveModal('PUBLISH')}>Publish</button>
                 </footer>
             </form>
         );

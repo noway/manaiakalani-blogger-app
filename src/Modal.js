@@ -65,7 +65,7 @@ const customStyles = {
 
   
     render() {
-      const {type, leftActionText, leftActionClassName, rightActionClassName, rightActionText, color, message, mainMessage} = this.props;
+      const {type, alertBodyColorClassName, leftActionText, leftActionClassName, rightActionClassName, rightActionText, color, message, mainMessage} = this.props;
       let modalBody;
 
       if(type == 'error')
@@ -82,7 +82,7 @@ const customStyles = {
         }
       else {
         modalBody = (
-          <div className="alert-body">
+          <div className={alertBodyColorClassName}>
               <div className="alert-title-bg">
                   <div className="alert-title alert-message" >{message}</div>
                   <div className="alert-main-message">{mainMessage}</div>

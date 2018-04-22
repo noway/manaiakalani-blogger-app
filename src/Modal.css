@@ -76,12 +76,20 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #BF202F;
+    /* background-color: #BF202F; */
     padding: 10px;
 }
 
-.alert-body {
+.alert-body-red {
     background-color:#BF202F;
+    font-family: 'Raleway';
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-body-green {
+    background-color:#29B04A;
     font-family: 'Raleway';
     font-size: 20px;
     display: flex;
