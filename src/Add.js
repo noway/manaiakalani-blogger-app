@@ -44,7 +44,7 @@ class Add extends Component {
     };
 
     render() {
-        const {schedulePost, id, title} = this.props;
+        const {schedulePost, id, title, content} = this.props;
         const pageTitle = id ? 'Edit post' : 'Create a new post';
         return (
             <form>
@@ -76,7 +76,10 @@ class Add extends Component {
                                 value={this.state.title} 
                                 onChange={ (e) => this.setState({ title: e.target.value }) } />
                         </PostField>
-                        <Editor ref={c => this._editor = c } />
+                        <Editor
+                            content={content}
+                            ref={c => this._editor = c }
+                        />
                     </div>
                     <div className="post-secondary">
                         <PostField title="Add Label:">

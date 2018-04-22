@@ -12,7 +12,9 @@ class Editor extends Component {
     super(props);
 
     this.state = {
-      value: RichTextEditor.createEmptyValue()
+      value: this.props.content 
+        ? RichTextEditor.createValueFromString(this.props.content, 'html')
+        : RichTextEditor.createEmptyValue()
     };
   }
 
