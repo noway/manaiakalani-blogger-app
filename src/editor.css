@@ -8,3 +8,14 @@
 
     padding: 10px 15px;
 }
+
+.post-content-editor button {
+    width: 30px;
+    height: 30px;
+}
+.post-content-editor button > span:only-child {
+    width: 22px;
+    height: 22px;
+
+    background-size: 22px;	
+}

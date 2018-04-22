@@ -33,7 +33,7 @@ class Editor extends Component {
       <PostField title="Content:" htmlFor="postContent">
           <RichTextEditor
             id="postContent" 
-            className="post-content"
+            className="post-content post-content-editor"
             value={this.state.value}
             onChange={this.onChange}
             placeholder="Type here..."
