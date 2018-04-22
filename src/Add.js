@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Editor from './Editor'
 import {Blogs, Posts} from './api/blogger'
 import * as moment from 'moment';
-import { map } from 'lodash';
+import { map, uniq } from 'lodash';
 
 class Add extends Component {
 
@@ -13,8 +13,8 @@ class Add extends Component {
 
         this.state = {
             timePickerShown: false,
-            title: props.title,
-            labels: props.labels
+            title: props.title ? props.title : '',
+            labels: props.labels ? props.labels : []
         };
     }
 
@@ -44,11 +44,17 @@ class Add extends Component {
         }
     };
 
+    labelSelect = (event) => {
+        this.setState({
+            labels: uniq([...this.state.labels, event.target.value])
+        });
+    };
+
     render() {
         const {schedulePost, id, title, content} = this.props;
         const pageTitle = id ? 'Edit post' : 'Create a new post';
         return (
-            <form>
+            <form onSubmit={(e) => { this.handlePublishClick(); e.preventDefault(); return false }}>
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
@@ -84,11 +90,13 @@ class Add extends Component {
                     </div>
                     <div className="post-secondary">
                         <PostField title="Add Label:">
-                            <select className="label-select" onChange={this.labelSelect}>
+                            <select className="label-select" value='' onChange={this.labelSelect}>
                                 {
-                                    this.props.existingLabels && map(this.props.existingLabels, (existingLabel, i) => <option key={i}>
-                                        { existingLabel }
-                                    </option>)
+                                    this.props.existingLabels && map(['', ...this.props.existingLabels], (existingLabel, i) => {
+                                        return <option value={existingLabel} key={i} disabled={existingLabel === '' ? true : false}>
+                                            { existingLabel === '' ? 'Select a label' : existingLabel }
+                                        </option>
+                                    })
                                 }
                             </select>
                         </PostField>
