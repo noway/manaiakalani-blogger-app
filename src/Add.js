@@ -42,7 +42,7 @@ class Add extends Component {
                     </div>
                 </header>
                 <h2 className="post-page-title">Create a new post</h2>
-                <div className="post-field-wrapper post-padding">
+                <div className="post-fields-wrapper">
                     <div className="post-main">
                         <PostField title="Title:" htmlFor="postTitle">
                             <input id="postTitle" type="text" className="post-title-input" />
@@ -62,7 +62,7 @@ class Add extends Component {
                         </PostField>
                     </div>
                 </div>
-                <footer className="post-footer post-padding">
+                <footer className="post-footer">
                     <button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button>
                     <button type="submit" className="button-secondary button-spaced">Publish</button>
                 </footer>
