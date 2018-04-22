@@ -6,7 +6,7 @@ import './nav.css';
 
 class Navigation extends Component {
   render() {
-    const { posts, postsCount, loadPostsNext, onLogoutClick, schedulePost } = this.props;
+    const { posts, postsCount, loadPostsNext, onLogoutClick, selectedBlog, existingLabels, schedulePost } = this.props;
     return (
       <Router>
         <div>
@@ -27,7 +27,7 @@ class Navigation extends Component {
               <Home posts={posts} postsCount={postsCount} loadPostsNext={loadPostsNext} />
             )} />
             <Route exact path="/Add" component={() => (
-              <Add schedulePost={schedulePost} />
+              <Add selectedBlog={selectedBlog} existingLabels={existingLabels} schedulePost={schedulePost} />
             )} />
             <Route path="/Edit/:id" component={({match}) => (
               <Add postId={match.params.id} />

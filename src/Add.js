@@ -1,6 +1,9 @@
 import PostField from './PostField';
 import React, { Component } from 'react';
 import Editor from './Editor'
+import {Blogs, Posts} from './api/blogger'
+import * as moment from 'moment';
+import { map } from 'lodash';
 
 class Add extends Component {
 
@@ -9,7 +12,9 @@ class Add extends Component {
         super(props);
 
         this.state = {
-            timePickerShown: false
+            timePickerShown: false,
+            title: props.title ? props.title : '',
+            labels: props.labels ? props.labels : [],
         };
     }
     handleScheduleOnClick = () => {
@@ -17,11 +22,26 @@ class Add extends Component {
             timePickerShown: true
         })
         this.props.schedulePost(/* time moment */);
-    }
+    };
 
-    handlePublishClick = () => {
-        console.log(this._editor.getValue());
-    }
+    handlePublishClick = async () => {
+        const content = this._editor.getValue();
+        const { selectedBlog } = this.props;
+        const { title, labels } = this.state;
+        try {
+          const currentMoment = moment(); // Change that the scheduled date moment
+          const newPost = await Posts.insert(selectedBlog.id, {
+            title,
+            content,
+            labels,
+            published: currentMoment.toISOString(),
+          });
+          console.log('newPost', newPost);
+        } catch (e) {
+          console.log('e',e)
+          alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+        }
+    };
 
     render() {
         const {schedulePost, postId} = this.props;
@@ -31,7 +51,7 @@ class Add extends Component {
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
-                        <button t ype="button" className="post-header-button">
+                        <button type="button" className="post-header-button">
                             <i className="fas fa-save"></i>
                             <span className="post-header-button-label">Save</span>
                         </button>
@@ -49,20 +69,36 @@ class Add extends Component {
                 <div className="post-fields-wrapper">
                     <div className="post-main">
                         <PostField title="Title:" htmlFor="postTitle">
-                            <input id="postTitle" type="text" className="post-title-input" />
+                            <input 
+                                id="postTitle" 
+                                type="text" 
+                                className="post-title-input" 
+                                value={this.state.title} 
+                                onChange={ (e) => this.setState({ title: e.target.value }) } />
                         </PostField>
                         <Editor ref={c => this._editor = c } />
                     </div>
                     <div className="post-secondary">
                         <PostField title="Add Label:">
                             <select className="label-select">
-                                <option>Label 1</option>
-                                <option>Label 2</option>
+                                {
+                                    this.props.existingLabels && map(this.props.existingLabels, (existingLabel, i) => <option key={i}>
+                                        { existingLabel }
+                                    </option>)
+                                }
                             </select>
                         </PostField>
 
                         <PostField title="Current Labels:">
-                            <div>List of labels go here</div>
+                            <div>
+                            { 
+                                map(this.state.labels, (label, i) => {
+                                    return (
+                                        <div key={i}><span>×</span> {label}</div>
+                                    );
+                                })
+                            }
+                            </div>
                         </PostField>
                     </div>
                 </div>
