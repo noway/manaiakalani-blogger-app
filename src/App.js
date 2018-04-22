@@ -165,7 +165,7 @@ class App extends Component {
     console.log('myBlog',myBlog);
 
     try {
-      const response = await fetchJsonp(`${myBlog.url}feeds/posts/summary?alt=json&max-results=0&callback=cat`, { jsonpCallbackFunction: 'cat' });
+      const response = await fetchJsonp(`${myBlog.url.replace(/^http:\/\//i, 'https://')}feeds/posts/summary?alt=json&max-results=0&callback=cat`, { jsonpCallbackFunction: 'cat' });
       const data = await response.json();
       const existingLabels = data.feed.category.map((category) => category.term);
       this.setState({

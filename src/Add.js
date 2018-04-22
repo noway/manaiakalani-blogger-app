@@ -106,7 +106,7 @@ class Add extends Component {
                             { 
                                 map(this.state.labels, (label, i) => {
                                     return (
-                                        <div key={i}><span>×</span> {label}</div>
+                                        <div key={i}><button type="button" onClick={() => this.labelRemove()}>×</button> {label}</div>
                                     );
                                 })
                             }
