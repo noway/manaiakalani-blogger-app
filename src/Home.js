@@ -1,6 +1,7 @@
 import React from 'react';
 import Block from './Block';
 import InfiniteScroll from 'react-infinite-scroller';
+import Error from './Modal';
 
 export default function Home({ posts, postsCount, loadPostsNext }) {
     console.log(posts);
@@ -9,12 +10,17 @@ export default function Home({ posts, postsCount, loadPostsNext }) {
     ) : 'Loading';
     
     return (
-        <InfiniteScroll
-            pageStart={0}
-            loadMore={loadPostsNext}
-            hasMore={posts ? posts.length < postsCount : false}
-            loader={<div className="loader" key={0}>Loading ...</div>}>
-            {component}
-        </InfiniteScroll>
+        <div>
+            <Error/>
+            <InfiniteScroll
+                pageStart={0}
+                loadMore={loadPostsNext}
+                hasMore={posts ? posts.length < postsCount : false}
+                loader={<div className="loader" key={0}>Loading ...</div>}>
+                
+                {component}
+            </InfiniteScroll>
+        </div>
+        
     );
 }
