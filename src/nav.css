@@ -29,9 +29,10 @@
     margin-top: auto;
 }
 
-.nav-logout-text {
+.nav-logout-label {
     display: block;
     margin-top: 10px;
+    font-size: 16px;
 }
 
 .main {
