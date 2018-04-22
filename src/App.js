@@ -32,6 +32,12 @@ class App extends Component {
 
   componentDidMount() {
     window.gapi.load('client:auth2:blogger:picker', this.initClient);
+
+    if (!(location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+      if (location.protocol !== "http:") {
+        location = `https://${location.host}/`;
+      }
+    }
   }
 
   initClient = () => {

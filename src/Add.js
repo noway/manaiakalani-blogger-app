@@ -17,6 +17,7 @@ class Add extends Component {
             labels: props.labels
         };
     }
+
     handleScheduleOnClick = () => {
         this.setState({
             timePickerShown: true
@@ -37,9 +38,9 @@ class Add extends Component {
             published: currentMoment.toISOString(),
           });
           console.log('newPost', newPost);
-        } catch (e) {
-          console.log('e',e)
-          alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+        } catch (error) {
+          alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${error.message}`);
+          console.error('error', error);
         }
     };
 
@@ -83,7 +84,7 @@ class Add extends Component {
                     </div>
                     <div className="post-secondary">
                         <PostField title="Add Label:">
-                            <select className="label-select">
+                            <select className="label-select" onChange={this.labelSelect}>
                                 {
                                     this.props.existingLabels && map(this.props.existingLabels, (existingLabel, i) => <option key={i}>
                                         { existingLabel }
