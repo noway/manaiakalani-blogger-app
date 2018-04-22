@@ -59,17 +59,18 @@
     background-color: red;
 }
 .color-green {
-    color: green;
+    color: #29B04A;
 }
 .color-yellow {
-    color: yellow;
+    color: #FEDA00;
 }
 .color-red {
-    color: red;
+    color: #BF202F;
 }
 
 .block-title {
     margin: 0 0 0 10px;
+    font-size: 20px;
 }
 
 .block-header {
@@ -191,4 +192,19 @@
     width: 100%;
     font-size: 20px;
     padding: 10px;
+}
+
+.Content-Css{
+     border-color: black;
+    border-style: solid;
+
+}
+
+.block-align-div{
+    margin-left: auto;
+    
+}
+
+.block-align-span{
+    display: block;
 }
