@@ -109,9 +109,10 @@ class Add extends Component {
             throw new Error('Post hasn\'t been published');
           }
 
-          this.setState({
-            redirectToPosts: true,
-          })
+          // this.setState({
+          //   redirectToPosts: true,
+          // })
+          window.location = '/';
         } catch (error) {
           alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${error.message}`);
           console.error('error', error);
@@ -148,9 +149,10 @@ class Add extends Component {
             throw new Error('Post hasn\'t been saved as draft');
           }
 
-          this.setState({
-            redirectToPosts: true,
-          })
+          // this.setState({
+          //   redirectToPosts: true,
+          // })
+          window.location = '/';
         } catch (error) {
           alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${error.message}`);
           console.error('error', error);
