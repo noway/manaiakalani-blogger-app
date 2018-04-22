@@ -93,10 +93,12 @@ class Add extends Component {
                             <i className="fas fa-trash-alt"></i>
                             <span className="post-header-button-label">Delete</span>
                         </button>
+{/*
                         <button type="button" className="post-header-button">
                             <i className="fas fa-eye"></i>
                             <span className="post-header-button-label">Preview</span>
                         </button>
+*/}
                     </div>
                 </header>
                 <h2 className="post-page-title">{pageTitle}</h2>

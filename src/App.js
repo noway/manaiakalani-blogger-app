@@ -176,47 +176,48 @@ class App extends Component {
     }
 
 
-    // -------- IVAN COPY-PASTE THIS -------- 
-    let myFirstPost;
-    try {
-      myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
-      console.log('my post #1', myFirstPost);
-    } catch (e) {
-      console.log('e',e)
-      alert(`There has been an error while loading a post on your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
-    }
-    // --------------------------------------
+  //   // -------- IVAN COPY-PASTE THIS -------- 
+  //   let myFirstPost;
+  //   try {
+  //     myFirstPost = await Posts.get(myBlog.id, myPosts.items[0].id);
+  //     console.log('my post #1', myFirstPost);
+  //   } catch (e) {
+  //     console.log('e',e)
+  //     alert(`There has been an error while loading a post on your blog! \n\nTry to refresh the page or log out and log back in. \n\nError message: ${e.message}`);
+  //   }
+  //   // --------------------------------------
 
 
-    // -------- IVAN COPY-PASTE THIS -------- 
-    try {
-      const currentMoment1 = moment()
-      const updatedPost = await Posts.updateAndPossiblyRevertToDraft(
-        myBlog.id, 
-        { ...myFirstPost, title: `Random title ${Math.random()}`, updated: currentMoment1.toISOString()}, 
-        Math.round(Math.random())
-      );
+  //   // -------- IVAN COPY-PASTE THIS -------- 
+  //   try {
+  //     const currentMoment1 = moment()
+  //     const updatedPost = await Posts.updateAndPossiblyRevertToDraft(
+  //       myBlog.id, 
+  //       { ...myFirstPost, title: `Random title ${Math.random()}`, updated: currentMoment1.toISOString()}, 
+  //       Math.round(Math.random())
+  //     );
 
-      console.log('my post #1 updated', updatedPost);      
-    } catch (e) {
-      console.log('e',e)
-      alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
-    }
-    // --------------------------------------
-
-
+  //     console.log('my post #1 updated', updatedPost);      
+  //   } catch (e) {
+  //     console.log('e',e)
+  //     alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+  //   }
+  //   // --------------------------------------
 
 
-    // -------- IVAN COPY-PASTE THIS -------- 
-    try {
-      const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
-      console.log('deletedPost', deletedPost);
-    } catch (e) {
-      console.log('e',e)
-      alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
-    }
-    // --------------------------------------
-  };
+
+
+  //   // -------- IVAN COPY-PASTE THIS -------- 
+  //   try {
+  //     const deletedPost = await Posts.delete(myBlog.id, myFirstPost.id);
+  //     console.log('deletedPost', deletedPost);
+  //   } catch (e) {
+  //     console.log('e',e)
+  //     alert(`There has been an error while deleting blog post! \n\nTry again or log out and log back in. \n\nError message: ${e.message}`);
+  //   }
+  //   // --------------------------------------
+  // };
+
 
   schedulePost = () => {
     console.log('scheudle pressed! !');
