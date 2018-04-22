@@ -20,7 +20,7 @@ class Navigation extends Component {
             </Link>
             <button className="nav-icon button-logout" onClick={onLogoutClick}>
               <i className="fas fa-user"></i>
-              <span className="nav-logout-text">Logout</span>
+              <span className="nav-logout-label">Logout</span>
             </button>
           </nav>
           <div className="main">

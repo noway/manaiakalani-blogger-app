@@ -16,6 +16,10 @@ class Editor extends Component {
     };
   }
 
+  getValue = () => {
+    return this.state.value.toString('html');
+  }
+
   onChange = (value) => {
     this.setState({value});
     if (this.props.onChange) {

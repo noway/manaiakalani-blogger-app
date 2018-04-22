@@ -20,6 +20,10 @@ class Add extends Component {
         this.props.schedulePost(/* time moment */);
     }
 
+    handlePublishClick = () => {
+        console.log(this._editor.getValue());
+    }
+
     render() {
         const {schedulePost} = this.props;
         return (
@@ -27,7 +31,7 @@ class Add extends Component {
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
-                        <button type="button" className="post-header-button">
+                        <button t ype="button" className="post-header-button">
                             <i className="fas fa-save"></i>
                             <span className="post-header-button-label">Save</span>
                         </button>
@@ -47,7 +51,7 @@ class Add extends Component {
                         <PostField title="Title:" htmlFor="postTitle">
                             <input id="postTitle" type="text" className="post-title-input" />
                         </PostField>
-                        <Editor/>
+                        <Editor ref={c => this._editor = c } />
                     </div>
                     <div className="post-secondary">
                         <PostField title="Add Label:">
@@ -64,7 +68,7 @@ class Add extends Component {
                 </div>
                 <footer className="post-footer">
                     <button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button>
-                    <button type="submit" className="button-secondary button-spaced">Publish</button>
+                    <button type="button" className="button-secondary button-spaced" onClick={this.handlePublishClick}>Publish</button>
                 </footer>
             </form>
         );
