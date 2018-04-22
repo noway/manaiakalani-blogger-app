@@ -18,14 +18,14 @@ class Editor extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('receiving', nextProps)
-    this.setState({
-      value: nextProps.content 
-        ? RichTextEditor.createValueFromString(nextProps.content, 'html')
-        : RichTextEditor.createEmptyValue()
-    });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('receiving', nextProps)
+  //   this.setState({
+  //     value: nextProps.content 
+  //       ? RichTextEditor.createValueFromString(nextProps.content, 'html')
+  //       : RichTextEditor.createEmptyValue()
+  //   });
+  // }
 
   getValueHtml = () => {
     return this.state.value.toString('html');
