@@ -4,6 +4,12 @@ import Editor from './Editor'
 import {Blogs, Posts} from './api/blogger'
 import * as moment from 'moment';
 import { map, uniq, difference } from 'lodash';
+import { Redirect } from 'react-router'
+
+function strip(html){
+   var doc = new DOMParser().parseFromString(html, 'text/html');
+   return doc.body.textContent || "";
+}
 
 class Add extends Component {
 
@@ -14,7 +20,8 @@ class Add extends Component {
         this.state = {
             timePickerShown: false,
             title: props.title ? props.title : '',
-            labels: props.labels ? props.labels : []
+            labels: props.labels ? props.labels : [],
+            redirectToPosts: false,
         };
     }
 
@@ -26,9 +33,15 @@ class Add extends Component {
     };
 
     handlePublishClick = async () => {
-        const content = this._editor.getValue();
+        const content = this._editor.getValueHtml();
         const { selectedBlog } = this.props;
         const { title, labels } = this.state;
+
+
+        if (!title || !strip(content)) {
+            return alert('Please fill out title and the content of the post.');
+        }
+
         try {
           const currentMoment = moment(); // Change that the scheduled date moment
           const newPost = await Posts.insert(selectedBlog.id, {
@@ -38,6 +51,10 @@ class Add extends Component {
             published: currentMoment.toISOString(),
           });
           console.log('newPost', newPost);
+
+          this.setState({
+            redirectToPosts: true,
+          })
         } catch (error) {
           alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${error.message}`);
           console.error('error', error);
@@ -58,7 +75,11 @@ class Add extends Component {
 
     render() {
         const {schedulePost, id, title, content} = this.props;
+        const {redirectToPosts} = this.state;
         const pageTitle = id ? 'Edit post' : 'Create a new post';
+        if (redirectToPosts) {
+           return <Redirect to='/'/>;
+        }
         return (
             <form onSubmit={(e) => { this.handlePublishClick(); e.preventDefault(); return false }}>
                 <header className="post-header">

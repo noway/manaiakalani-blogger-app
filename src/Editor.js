@@ -18,9 +18,13 @@ class Editor extends Component {
     };
   }
 
-  getValue = () => {
+  getValueHtml = () => {
     return this.state.value.toString('html');
   }
+
+  // getValueText = () => {
+  //   return this.state.value.toString('markdown');
+  // }
 
   onChange = (value) => {
     this.setState({value});
