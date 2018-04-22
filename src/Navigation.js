@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './Home';
 import Add from './Add';
-import Profile from './Profile';
 import './nav.css';
 
 class Navigation extends Component {
@@ -27,10 +26,12 @@ class Navigation extends Component {
             <Route exact path="/" component={() => (
               <Home posts={posts} postsCount={postsCount} loadPostsNext={loadPostsNext} />
             )} />
-            <Route exact path="/Add" component={() =>(
-              <Add schedulePost={schedulePost}/>
+            <Route exact path="/Add" component={() => (
+              <Add schedulePost={schedulePost} />
             )} />
-            <Route path="/Profile" component={Profile} />
+            <Route path="/Edit/:id" component={({match}) => (
+              <Add postId={match.params.id} />
+            )} />
           </div>
         </div>
       </Router>

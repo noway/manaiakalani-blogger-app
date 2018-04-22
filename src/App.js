@@ -42,15 +42,12 @@ class App extends Component {
   };
 
   updateSigninStatus = (isSignedIn) => {
+    this.setState({
+      isSignedIn: isSignedIn
+    });
+
     if (isSignedIn) {
-      this.setState({
-        isSignedIn: true
-      });
       this.makeApiCall();
-    } else {
-      this.setState({
-        isSignedIn: false
-      });
     }
   };
 

@@ -39,14 +39,17 @@
     padding-left: 80px;
 }
 
-.block{
+.block {
     padding: 20px;
+    text-decoration: none;
+    display: block;
+    color: #2B4A9F;
 }
 
 .circle {
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
 }
 .circle-green {
@@ -79,7 +82,8 @@
 }
 
 .block-content {
-    margin: 20px 0 0 40px;
+    margin: 10px 0 0 30px;
+    color: #606261;
 }
 
 .block-status {
@@ -123,7 +127,7 @@
 .post-page-title {
     margin: 0;
     font-size: 30px;
-    padding: 40px;
+    padding: 40px 40px 20px 40px;
 }
 
 .post-footer {

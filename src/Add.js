@@ -13,7 +13,6 @@ class Add extends Component {
         };
     }
     handleScheduleOnClick = () => {
-
         this.setState({
             timePickerShown: true
         })
@@ -25,7 +24,8 @@ class Add extends Component {
     }
 
     render() {
-        const {schedulePost} = this.props;
+        const {schedulePost, postId} = this.props;
+        const pageTitle = postId ? 'Edit post' : 'Create a new post';
         return (
             <form>
                 <header className="post-header">
@@ -45,7 +45,7 @@ class Add extends Component {
                         </button>
                     </div>
                 </header>
-                <h2 className="post-page-title">Create a new post</h2>
+                <h2 className="post-page-title">{pageTitle}</h2>
                 <div className="post-fields-wrapper">
                     <div className="post-main">
                         <PostField title="Title:" htmlFor="postTitle">
