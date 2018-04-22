@@ -13,8 +13,8 @@ class Add extends Component {
 
         this.state = {
             timePickerShown: false,
-            title: props.title ? props.title : '',
-            labels: props.labels ? props.labels : [],
+            title: props.title,
+            labels: props.labels
         };
     }
     handleScheduleOnClick = () => {
@@ -44,8 +44,8 @@ class Add extends Component {
     };
 
     render() {
-        const {schedulePost, postId} = this.props;
-        const pageTitle = postId ? 'Edit post' : 'Create a new post';
+        const {schedulePost, id, title} = this.props;
+        const pageTitle = id ? 'Edit post' : 'Create a new post';
         return (
             <form>
                 <header className="post-header">
@@ -112,3 +112,8 @@ class Add extends Component {
 }
 
 export default Add;
+
+Add.defaultProps = {
+    postTitle: '',
+    labels: []
+};

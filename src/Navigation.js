@@ -29,9 +29,16 @@ class Navigation extends Component {
             <Route exact path="/Add" component={() => (
               <Add selectedBlog={selectedBlog} existingLabels={existingLabels} schedulePost={schedulePost} />
             )} />
-            <Route path="/Edit/:id" component={({match}) => (
-              <Add postId={match.params.id} />
-            )} />
+            <Route path="/Edit/:id" component={({match}) => {
+              const post = posts.find(post => post.id === match.params.id);
+              return(
+                <Add
+                  id={post.id}
+                  title={post.title}
+                  content={post.content}
+                />
+              );
+            }} />
           </div>
         </div>
       </Router>
