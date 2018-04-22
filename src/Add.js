@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Editor from './Editor'
 import {Blogs, Posts} from './api/blogger'
 import * as moment from 'moment';
-import { map, uniq } from 'lodash';
+import { map, uniq, difference } from 'lodash';
 
 class Add extends Component {
 
@@ -47,6 +47,12 @@ class Add extends Component {
     labelSelect = (event) => {
         this.setState({
             labels: uniq([...this.state.labels, event.target.value])
+        });
+    };
+
+    labelRemove = (label) => {
+        this.setState({
+            labels: difference(this.state.labels, [label])
         });
     };
 
@@ -106,7 +112,7 @@ class Add extends Component {
                             { 
                                 map(this.state.labels, (label, i) => {
                                     return (
-                                        <div key={i}><button type="button" onClick={() => this.labelRemove()}>×</button> {label}</div>
+                                        <div key={i}><button type="button" onClick={ () => this.labelRemove(label) }>×</button> {label}</div>
                                     );
                                 })
                             }
