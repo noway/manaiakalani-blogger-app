@@ -49,6 +49,7 @@ class Navigation extends Component {
               const post = posts.find(post => post.id === match.params.id);
               return(
                 <Add
+                  selectedBlog={selectedBlog} existingLabels={existingLabels}
                   id={post.id}
                   title={post.title}
                   content={post.content}

@@ -91,6 +91,7 @@ export class Posts {
         params: {
           blogId,
           postId,
+          ...(isDraft ? {} : { publish: true })
         },
         body: post,
       }).then((resp) => {

@@ -157,7 +157,7 @@ class App extends Component {
           }
         })
         .build();
-     picker.setVisible(true);
+     // picker.setVisible(true);
 
     const { myBlog, myPosts } = await this.loadPostsInitial();
     console.log('myBlog.id', myBlog.id);

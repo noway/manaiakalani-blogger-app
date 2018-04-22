@@ -34,7 +34,7 @@ class Add extends Component {
 
     handlePublishClick = async () => {
         const content = this._editor.getValueHtml();
-        const { selectedBlog } = this.props;
+        const { selectedBlog, id } = this.props;
         const { title, labels } = this.state;
 
         if (!title || !strip(content)) {
@@ -43,12 +43,24 @@ class Add extends Component {
 
         try {
           const currentMoment = moment(); // Change that the scheduled date moment
-          const newPost = await Posts.insert(selectedBlog.id, {
+          const postData = {
+            id,
             title,
             content,
             labels,
             published: currentMoment.toISOString(),
-          }, false);
+          };
+
+          let post;
+          if (this.props.id) {
+              post = await Posts.updateAndPossiblyRevertToDraft(selectedBlog.id, postData, false);
+          } else {        
+              post = await Posts.insert(selectedBlog.id, postData, false);
+          }
+
+          if (!(post && post.id)) {
+            throw new Error('Post hasn\'t been published');
+          }
 
           this.setState({
             redirectToPosts: true,
@@ -61,7 +73,7 @@ class Add extends Component {
 
     handleSaveAsDraftClick = async () => {
         const content = this._editor.getValueHtml();
-        const { selectedBlog } = this.props;
+        const { selectedBlog, id } = this.props;
         const { title, labels } = this.state;
 
         if (!title || !strip(content)) {
@@ -70,12 +82,24 @@ class Add extends Component {
 
         try {
           const currentMoment = moment(); // Change that the scheduled date moment
-          const newPost = await Posts.insert(selectedBlog.id, {
+          const postData = {
+            id,
             title,
             content,
             labels,
             published: currentMoment.toISOString(),
-          }, true);
+          };
+
+          let post;
+          if (this.props.id) {
+              post = await Posts.updateAndPossiblyRevertToDraft(selectedBlog.id, postData, true);
+          } else {        
+              post = await Posts.insert(selectedBlog.id, postData, true);
+          }
+
+          if (!(post && post.id)) {
+            throw new Error('Post hasn\'t been saved as draft');
+          }
 
           this.setState({
             redirectToPosts: true,
