@@ -23,7 +23,7 @@ export default class PostField extends PureComponent {
     };
 
     render() {
-        const {title} = this.props;
+        const {title, htmlFor} = this.props;
         const {isFocused} = this.state;
         const originalChildEl = React.Children.only(this.props.children);
 
@@ -32,11 +32,13 @@ export default class PostField extends PureComponent {
             {...originalChildEl.props, onFocus: this.onFocus, onBlur: this.onBlur}
         );
 
+        const TitleEl = htmlFor ? 'label' : 'div';
+
         return (
             <div className={cn('post-field', isFocused && 'post-field-focused')}>
-                <div className={cn('post-field-title', isFocused && 'post-field-title-focused')}>
+                <TitleEl htmlFor={htmlFor} className={cn('post-field-title', isFocused && 'post-field-title-focused')}>
                     {title}
-                </div>
+                </TitleEl>
                 {childEl}
             </div>
         );

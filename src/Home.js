@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Error from './Modal';
 
 export default function Home({ posts, postsCount, loadPostsNext }) {
-    console.log(posts);
     const component = posts ? posts.map(block => (
         <Block key={block.id} {...block} />)
     ) : 'Loading';
@@ -12,15 +11,17 @@ export default function Home({ posts, postsCount, loadPostsNext }) {
     return (
         <div>
             <Error/>
+            <header className="post-header">
+                <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
+            </header>
+            <h2 className="post-page-title">All posts</h2>
             <InfiniteScroll
                 pageStart={0}
                 loadMore={loadPostsNext}
                 hasMore={posts ? posts.length < postsCount : false}
                 loader={<div className="loader" key={0}>Loading ...</div>}>
-                
                 {component}
             </InfiniteScroll>
         </div>
-        
     );
 }

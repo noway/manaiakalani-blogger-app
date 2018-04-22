@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './Home';
 import Add from './Add';
-import Profile from './Profile';
 import './nav.css';
 import MessageModal from './Modal';
 
@@ -13,7 +12,7 @@ class Navigation extends Component {
   }
 
   render() {
-    const { posts, postsCount, loadPostsNext, onLogoutClick } = this.props;
+    const { posts, postsCount, loadPostsNext, onLogoutClick, selectedBlog, existingLabels, schedulePost } = this.props;
     return (
       <Router>
         <div>
@@ -36,15 +35,26 @@ class Navigation extends Component {
             </Link>
             <button className="nav-icon button-logout" onClick={this.onLogoutClick}>
               <i className="fas fa-user"></i>
-              <span className="nav-logout-text">Logout</span>
+              <span className="nav-logout-label">Logout</span>
             </button>
           </nav>
           <div className="main">
             <Route exact path="/" component={() => (
               <Home posts={posts} postsCount={postsCount} loadPostsNext={loadPostsNext} />
             )} />
-            <Route exact path="/Add" component={Add} />
-            <Route path="/Profile" component={Profile} />
+            <Route exact path="/Add" component={() => (
+              <Add selectedBlog={selectedBlog} existingLabels={existingLabels} schedulePost={schedulePost} />
+            )} />
+            <Route path="/Edit/:id" component={({match}) => {
+              const post = posts.find(post => post.id === match.params.id);
+              return(
+                <Add
+                  id={post.id}
+                  title={post.title}
+                  content={post.content}
+                />
+              );
+            }} />
           </div>
         </div>
       </Router>

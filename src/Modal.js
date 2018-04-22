@@ -20,6 +20,7 @@ const customStyles = {
       width                 : '370px',
       textAlign             : 'center',
       border                : 'none',
+      zIndex                : '11',
     }
   };
   

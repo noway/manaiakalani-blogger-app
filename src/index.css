@@ -3,10 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 * {
   box-sizing: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 .first-login {
@@ -30,8 +35,8 @@ body {
 }
 
 .button-secondary {
-  border: 1px solid #1C43AB;
-  color: #1C43AB;
+  border: 1px solid #2B4A9F;
+  color: #2B4A9F;
   border-radius: 6px;
   font-size: 20px;
   background: #FFF;
@@ -39,7 +44,7 @@ body {
 }
 
 .button-main {
-  background: #1C43AB;
+  background: #2B4A9F;
   color: #FFF;
   padding: 10px 30px;
   border: none;

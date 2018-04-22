@@ -1,6 +1,6 @@
-.ReactModal__Overlay.ReactModal__Overlay--after-open {
-    background-color: rgba(0,3, 51, 0.6);
-    border: blue;
+.ReactModalPortal {
+    position: relative;
+    z-index: 20;
 }
 
 .title-bg {
