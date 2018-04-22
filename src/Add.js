@@ -70,9 +70,8 @@ class Add extends Component {
 
     handlePublishClick = async () => {
         const content = this._editor.getValueHtml();
-        const { selectedBlog } = this.props;
+        const { selectedBlog, id } = this.props;
         const { title, labels } = this.state;
-
 
         if (!title || !strip(content)) {
             return alert('Please fill out title and the content of the post.');
@@ -80,13 +79,63 @@ class Add extends Component {
 
         try {
           const currentMoment = moment(); // Change that the scheduled date moment
-          const newPost = await Posts.insert(selectedBlog.id, {
+          const postData = {
+            id,
             title,
             content,
             labels,
             published: currentMoment.toISOString(),
-          });
-          console.log('newPost', newPost);
+          };
+
+          let post;
+          if (this.props.id) {
+              post = await Posts.updateAndPossiblyRevertToDraft(selectedBlog.id, postData, false);
+          } else {        
+              post = await Posts.insert(selectedBlog.id, postData, false);
+          }
+
+          if (!(post && post.id)) {
+            throw new Error('Post hasn\'t been published');
+          }
+
+          this.setState({
+            redirectToPosts: true,
+          })
+        } catch (error) {
+          alert(`There has been an error while submitting your blog post! \n\nTry again or log out and log back in. \n\nError message: ${error.message}`);
+          console.error('error', error);
+        }
+    };
+
+    handleSaveAsDraftClick = async () => {
+        const content = this._editor.getValueHtml();
+        const { selectedBlog, id } = this.props;
+        const { title, labels } = this.state;
+
+        if (!title || !strip(content)) {
+            return alert('Please fill out title and the content of the post.');
+        }
+
+        try {
+          const currentMoment = moment(); // Change that the scheduled date moment
+          const postData = {
+            id,
+            title,
+            content,
+            labels,
+            published: currentMoment.toISOString(),
+          };
+
+          let post;
+          if (this.props.id) {
+              post = await Posts.updateAndPossiblyRevertToDraft(selectedBlog.id, postData, true);
+          } else {        
+              post = await Posts.insert(selectedBlog.id, postData, true);
+          }
+
+          if (!(post && post.id)) {
+            throw new Error('Post hasn\'t been saved as draft');
+          }
 
           this.setState({
             redirectToPosts: true,
@@ -120,7 +169,7 @@ class Add extends Component {
     }
 
     render() {
-        const {schedulePost, id, title, content} = this.props;
+        const {schedulePost, id, title, content, status} = this.props;
         const {redirectToPosts, activeModal} = this.state;
         const pageTitle = id ? 'Edit post' : 'Create a new post';
         if (redirectToPosts) {
@@ -132,9 +181,9 @@ class Add extends Component {
                 <header className="post-header">
                     <img src="/logo-horizontal.png" className="post-header-logo" alt="" />
                     <div className="post-header-buttons">
-                        <button type="button" className="post-header-button">
+                        <button type="button" className="post-header-button" onClick={this.handleSaveAsDraftClick}>
                             <i className="fas fa-save"></i>
-                            <span className="post-header-button-label">Save</span>
+                            <span className="post-header-button-label">{status == 'DRAFT' || !status ? 'Save' : 'Revert to Draft'}</span>
                         </button>
                         <button type="button" className="post-header-button" onClick={this.setActiveModal('DELETE')}>
                             <i className="fas fa-trash-alt"></i>
@@ -191,8 +240,8 @@ class Add extends Component {
                     </div>
                 </div>
                 <footer className="post-footer">
-                    <button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button>
-                    <button type="button" className="button-secondary button-spaced" onClick={this.setActiveModal('PUBLISH')}>Publish</button>
+                    {/* <button type="button" className="button-main button-spaced" onClick={this.handleScheduleOnClick}>Schedule</button> */}
+                    <button type="button" className="button-secondary button-spaced" onClick={this.setActiveModal('PUBLISH')}>{ id ? 'Update' : 'Publish'} </button>
                 </footer>
             </form>
         );

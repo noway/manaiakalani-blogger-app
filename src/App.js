@@ -19,14 +19,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      isSignedIn: false,
-
       existingLabels: undefined,
       selectedBlog: undefined,
       postsCount: undefined,
 
       nextPageToken: undefined,
       posts: undefined,
+      isInitialLoading: true,
+      isSignedIn: false
     };
   }
 
@@ -52,6 +52,7 @@ class App extends Component {
       );
       // Handle the initial sign-in state.
       this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
+     
     });
   };
 
@@ -61,7 +62,16 @@ class App extends Component {
     });
 
     if (isSignedIn) {
+      this.setState({
+        isSignedIn: true,
+        isInitialLoading: false,
+      });
       this.makeApiCall();
+    } else {
+      this.setState({
+        isSignedIn: false,
+        isInitialLoading: false,
+      });
     }
   };
 
@@ -129,7 +139,8 @@ class App extends Component {
 
     // request.execute((resp) => {  
     //   console.log('resp',resp);
-    // });
+          
+    // }
 
     const GoogleAuth = window.gapi.auth2.getAuthInstance();
     const GoogleUser = GoogleAuth.currentUser.get();
@@ -157,7 +168,7 @@ class App extends Component {
           }
         })
         .build();
-     picker.setVisible(true);
+     // picker.setVisible(true);
 
     const { myBlog, myPosts } = await this.loadPostsInitial();
     console.log('myBlog.id', myBlog.id);
@@ -225,9 +236,21 @@ class App extends Component {
 
   render() {
     return this.state.isSignedIn ? (
-      <Navigation onLogoutClick={this.signOut} selectedBlog={this.state.selectedBlog} posts={this.state.posts} postsCount={this.state.postsCount} existingLabels={this.state.existingLabels} loadPostsNext={() => this.loadPostsNext()} schedulePost={this.schedulePost}/>
+      <Navigation
+        onLogoutClick={this.signOut}
+        selectedBlog={this.state.selectedBlog}
+        posts={this.state.posts}
+        existingLabels={this.state.existingLabels}
+        postsCount={this.state.postsCount}
+        loadPostsNext={() => this.loadPostsNext()}
+        schedulePost={this.schedulePost}/>
     ) : (
-      <FirstLogin onSignInClick={this.signIn} />
+      (
+        <div>
+          {/* {this.state.isInitialLoading? <div> LOADING......</div> : <span></span>} */}
+          <FirstLogin isInitialLoading={this.state.isInitialLoading} onSignInClick={this.signIn} />
+        </div>
+      )
     )
   }
 }

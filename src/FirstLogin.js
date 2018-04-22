@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function({onSignInClick}) {
+export default function({onSignInClick, isInitialLoading}) {
+    
     return (
         <div className="first-login">
             <img src={`${process.env.PUBLIC_URL}/logo-vertical.png`} alt="Manaiakalani" />
@@ -9,8 +10,13 @@ export default function({onSignInClick}) {
                 type="button"
                 onClick={onSignInClick}
             >
-                Login with Google
+                {isInitialLoading ? 'Loading....' : 'Login with Google'}
+            
             </button>
+        
+            
         </div>
+        
     );
 }
+
