@@ -1,14 +1,10 @@
-.field-block {
-    background-color: rgb(229,229,229);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+
+.post-content.post-content-editor {
+	height: auto;
 }
-
-.field-block__title {
-
-    padding: 10px 15px;
+.post-content-editor [contenteditable] {
+	height: 200px;
 }
-
 .post-content-editor button {
     width: 30px;
     height: 30px;
