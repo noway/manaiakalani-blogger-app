@@ -408,7 +408,7 @@ class Add extends Component {
 				
                 <footer className="post-footer">
 					<button type="button" className="button-main button-spaced" onClick={this.popFilePicker}>Attach File</button>
-                    <button type="button" className="button-secondary button-spaced" style={{'margin-left' : 'auto'}} onClick={this.setActiveModal('PUBLISH')}>{ status === 'DRAFT' || !id ? 'Publish' : 'Update'} </button>
+                    <button type="button" className="button-secondary button-spaced" style={{'marginLeft' : 'auto'}} onClick={this.setActiveModal('PUBLISH')}>{ status === 'DRAFT' || !id ? 'Publish' : 'Update'} </button>
                 </footer>
             </form>
         );
