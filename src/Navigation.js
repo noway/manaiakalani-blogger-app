@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, Redirect} from "react-router-dom";
 import Home from './Home';
 import Add from './Add';
 import './nav.css';
@@ -40,24 +40,34 @@ class Navigation extends Component {
             </button>
           </nav>
           <div className="main">
-            <Route exact path="/" component={() => (
-              <Home posts={posts} postsCount={postsCount} loadPostsNext={loadPostsNext} />
-            )} />
-            <Route exact path="/Add" component={() => (
-              <Add selectedBlog={selectedBlog} existingLabels={existingLabels} schedulePost={schedulePost} />
-            )} />
-            <Route path="/Edit/:id" component={({match}) => {
-              const post = posts.find(post => post.id === match.params.id);
-              return(
-                <Add
-                  selectedBlog={selectedBlog} existingLabels={existingLabels}
-                  id={post.id}
-                  title={post.title}
-                  content={post.content}
-                  status={post.status}
-                />
-              );
-            }} />
+			<Switch>
+				<Route exact path="/" component={() => (
+				  <Home posts={posts} postsCount={postsCount} loadPostsNext={loadPostsNext} />
+				)} />
+				<Route exact path="/Add" component={() => (
+				  <Add selectedBlog={selectedBlog} existingLabels={existingLabels} schedulePost={schedulePost} />
+				)} />
+				<Route path="/Edit/:id" component={({match}) => {
+				  const post = posts.find(post => post.id === match.params.id);
+				  if (post !== undefined){
+					  return(
+						<Add
+						  selectedBlog={selectedBlog} existingLabels={existingLabels}
+						  id={post.id}
+						  title={post.title}
+						  content={post.content}
+						  status={post.status}
+						/>
+					  );
+				  }
+				  else{
+					  return <Redirect to="/" />
+				  }
+				}} />
+				<Route component={() => (
+				  <Redirect to="/" />
+				)} />
+			</Switch>
           </div>
         </div>
       </Router>
