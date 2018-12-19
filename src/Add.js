@@ -365,10 +365,18 @@ class Add extends Component {
                             ref={c => this._editor = c }
                         />
 
-                        <button type="button" className="button-main button-spaced" onClick={this.popFilePicker}>Attach File</button>
+                        
 
                     </div>
                     <div className="post-secondary">
+						<PostField title="Select Date And Time:" htmlFor="dateAndTime" hidden={ status === 'SCHEDULED' || status === 'DRAFT' || !id ? "" : "hidden"}>
+							<Datetime 
+								inputProps={{style: {'border': 'none', 'width': '100%', 'padding' : '10px', 'fontSize' : '16px'}, id : 'dateAndTime', readOnly: 'readOnly'}} 
+								onChange={this.handleDate} dateFormat="DD/MM/YYYY" 
+								defaultValue={pickerDate} 
+								input={status === 'SCHEDULED' || status === 'DRAFT' || !id ? true : false}/>
+						</PostField>
+						
                         <PostField title="Add Label:">
                             <select className="label-select" value='' onChange={this.labelSelect}>
                                 {
@@ -393,19 +401,14 @@ class Add extends Component {
                             </div>
                         </PostField>
 						
-						<PostField title="Select Date And Time:" htmlFor="dateAndTime" hidden={ status === 'SCHEDULED' || status === 'DRAFT' || !id ? "" : "hidden"}>
-							<Datetime 
-								inputProps={{style: {'border': 'none', 'width': '100%', 'padding' : '10px', 'fontSize' : '16px'}, id : 'dateAndTime', readOnly: 'readOnly'}} 
-								onChange={this.handleDate} dateFormat="DD/MM/YYYY" 
-								defaultValue={pickerDate} 
-								input={status === 'SCHEDULED' || status === 'DRAFT' || !id ? true : false}/>
-						</PostField>
+
 						
                     </div>
                 </div>
 				
-                <footer className="post-footer">					
-                    <button type="button" className="button-secondary button-spaced" onClick={this.setActiveModal('PUBLISH')}>{ status === 'DRAFT' || !id ? 'Publish' : 'Update'} </button>
+                <footer className="post-footer">
+					<button type="button" className="button-main button-spaced" onClick={this.popFilePicker}>Attach File</button>
+                    <button type="button" className="button-secondary button-spaced" style={{'margin-left' : 'auto'}} onClick={this.setActiveModal('PUBLISH')}>{ status === 'DRAFT' || !id ? 'Publish' : 'Update'} </button>
                 </footer>
             </form>
         );

@@ -5,7 +5,7 @@
 	line-height: 1;
 }
 .post-content-editor [contenteditable] {
-	height: 300px;
+	height: 275px;
 	overflow: auto;
 }
 .post-content-editor button {

@@ -47,7 +47,7 @@ class Editor extends Component {
   //   return this.state.value.toString('markdown');
   // }
  
-  
+	
   onChange = (value) => {
     this.setState({value});
     if (this.props.onChange) {
@@ -61,11 +61,24 @@ class Editor extends Component {
   };
 
   render () {
+	const toolbarConfig = {
+		display: ['HISTORY_BUTTONS', 'IMAGE_BUTTON', 'LINK_BUTTONS', 'BLOCK_TYPE_DROPDOWN', 'BLOCK_TYPE_BUTTONS'],
+		BLOCK_TYPE_DROPDOWN: [
+		  {label: 'Normal', style: 'unstyled'},
+		  {label: 'Heading Large', style: 'header-one'},
+		  {label: 'Heading Medium', style: 'header-two'},
+		  {label: 'Heading Small', style: 'header-three'}
+		],
+		BLOCK_TYPE_BUTTONS: [
+		  {label: 'UL', style: 'unordered-list-item'},
+		  {label: 'OL', style: 'ordered-list-item'}
+    ]};
     return (
 	  <div>
       <PostField title="Content:" htmlFor="postContent">
 		
           <RichTextEditor
+			toolbarConfig={toolbarConfig}
             id="postContent" 
             className="post-content post-content-editor"
             value={this.state.value}

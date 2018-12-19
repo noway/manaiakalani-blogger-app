@@ -115,43 +115,42 @@
 
 .post-header-logo {
     height: 60px;
-    margin: 20px 0 20px 40px;
+    margin: 20px 0 20px 35px;
 }
 
 .post-header-buttons {
     margin-left: auto;
-    margin-right: 40px;
+    margin-right: 35px;
     display: flex;
 }
 
 .post-page-title {
     margin: 0;
     font-size: 30px;
-    padding: 40px 40px 20px 40px;
+    padding: 30px 40px 20px 35px;
 }
 
 .post-footer {
     display: flex;
-    justify-content: flex-end;
 }
 
 .post-padding {
-    padding: 40px;
+    padding: 35px;
 }
 
 .post-fields-wrapper {
-    padding: 0 40px;
+    padding: 0 35px;
     display: flex;
 }
 
 .post-footer {
-    padding: 0 40px 40px 40px;
+    padding: 0 35px 15px 15px;
 }
 
 .post-field {
     border-radius: 10px 10px 0 0;
     border: 1px solid #E5E5E5;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
     overflow: hidden;
 }
 
@@ -187,7 +186,8 @@
 
 .post-main {
     width: 70%;
-    margin-right: 40px;
+	min-width: 405px;
+    margin-right: 35px;
     line-height: 0; /* Prevents space under textarea */
 }
 
