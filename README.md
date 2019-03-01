@@ -1,3 +1,8 @@
+# This repo is unmaintained.
+The repo which is actively developed and maintained is https://github.com/AKindley/manaiakalani-blogger-app
+# /This repo is unmaintained.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
